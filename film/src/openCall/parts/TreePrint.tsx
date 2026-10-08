@@ -32,8 +32,21 @@ const SPRIGS: [number, number, number, number][] = [
 
 const polygonD = (pts: V[]) => `M${pts.map(([x, y]) => `${x.toFixed(1)} ${y.toFixed(1)}`).join('L')}Z`;
 
-export const TreePrint: React.FC<{uid: string; clip: V[]}> = ({uid, clip}) => {
+/** `clip` is the thread's outline (frame coordinates); `place` moves and scales the printed art to match a tree that was moved. */
+export const TreePrint: React.FC<{uid: string; clip: V[]; place?: string}> = ({uid, clip, place}) => {
   if (clip.length < 3) return null;
+  const art = (
+    <>
+      <path d={TRUNK_D} fill={C.tamarind} />
+      <path d={BARK_D} fill="none" stroke={C.wrapperDark} strokeWidth={4} strokeLinecap="round" />
+      <path d={CROWN_D} fill={`url(#${uid}-crown)`} />
+      <path d={CROWN_D} fill="none" stroke={C.wrapperDark} strokeWidth={3} strokeLinejoin="round" />
+      <g clipPath={`url(#${uid}-ink)`}>
+        <rect x={120} y={40} width={840} height={660} fill={`url(#${uid}-ht)`} />
+        <rect x={120} y={40} width={840} height={660} filter={`url(#${uid}-grain)`} opacity={0.5} style={{mixBlendMode: 'multiply'}} />
+      </g>
+    </>
+  );
   return (
     <g>
       <defs>
@@ -53,16 +66,7 @@ export const TreePrint: React.FC<{uid: string; clip: V[]}> = ({uid, clip}) => {
         <HalftonePattern id={`${uid}-ht`} />
         <GrainFilter id={`${uid}-grain`} />
       </defs>
-      <g clipPath={`url(#${uid}-shape)`}>
-        <path d={TRUNK_D} fill={C.tamarind} />
-        <path d={BARK_D} fill="none" stroke={C.wrapperDark} strokeWidth={4} strokeLinecap="round" />
-        <path d={CROWN_D} fill={`url(#${uid}-crown)`} />
-        <path d={CROWN_D} fill="none" stroke={C.wrapperDark} strokeWidth={3} strokeLinejoin="round" />
-        <g clipPath={`url(#${uid}-ink)`}>
-          <rect x={120} y={40} width={840} height={660} fill={`url(#${uid}-ht)`} />
-          <rect x={120} y={40} width={840} height={660} filter={`url(#${uid}-grain)`} opacity={0.5} style={{mixBlendMode: 'multiply'}} />
-        </g>
-      </g>
+      <g clipPath={`url(#${uid}-shape)`}>{place ? <g transform={place}>{art}</g> : art}</g>
     </g>
   );
 };

@@ -14,6 +14,7 @@ import {OC_FRAMES} from './performer/openCall';
 import {FILM_FRAMES} from './film/timeline';
 import {DURATION_FRAMES} from './proofs/pluckScene';
 import {LyricSyncTest, type SyncTestProps} from './lyric/SyncTest';
+import {IMLI_FRAMES, ImliFilm} from './imli/ImliFilm';
 
 export const RemotionRoot: React.FC = () => (
   <>
@@ -23,6 +24,7 @@ export const RemotionRoot: React.FC = () => (
     <Composition id="OpenCallFilm" component={OpenCallFilm} durationInFrames={OCF.frames} fps={FRAME.fps} width={FRAME.width} height={FRAME.height} />
     <Composition id="OpenCallHero" component={OpenCallHero} durationInFrames={HERO_FRAMES} fps={FRAME.fps} width={FRAME.width} height={FRAME.height} />
     <Composition id="ProofPluck" component={ProofPluck} durationInFrames={DURATION_FRAMES} fps={FRAME.fps} width={FRAME.width} height={FRAME.height} />
+    <Composition id="ImliFilm" component={ImliFilm} durationInFrames={IMLI_FRAMES} fps={FRAME.fps} width={FRAME.width} height={FRAME.height} />
     <Composition
       id="LyricSyncTest"
       component={LyricSyncTest}

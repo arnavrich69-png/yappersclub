@@ -8,7 +8,10 @@ from `../logo/dhwanikul-lockup-yellow.svg`, so the Devanagari is always shaped e
 ## Status
 
 Brief 02 is done. Brief 03 is built as the Night 01 open call: its frame, with no performer clip in it,
-and the 40 s open call film बस तू बाकी है, made only in code.
+and the 40 s open call film बस तू बाकी है, made only in code. Brief 04's machine has stages 1 and 2
+(word timing, the music as data, the sync test), measured on a test song and waiting for the first
+member's original. इमली क्यों? is the 21 s reel that tells the imli legend once, for the pinned row,
+so no other film has to.
 
 - `out/logo-film.mp4`: the logo film, 5.4 s, 1080 x 1920, 30 fps, with the FLAVOUR No. 01 seal
 - `out/logo-film-clean.mp4`: the same film with no seal (and no thud), to open any future reel
@@ -20,19 +23,34 @@ and the 40 s open call film बस तू बाकी है, made only in code
 - `out/open-call-film-frames/`: eight frames, one per beat of the story, and the grid cover (its last frame)
 - `out/open-call-hero.mp4` and `out/open-call-hero-frames/`: the film's approved hero proof
   (`open-call/`: creative direction, screenplay, score, implementation notes)
+- `out/imli-film.mp4`: इमली क्यों?, 21 s, 1080 x 1920, 30 fps, with its score: who Tansen was, his
+  tamarind tree, why our singers get an imli (`imli/creative-direction.md`)
+- `out/imli-film-frames/`: eight frames, one per bar, and the cover (its last frame)
+- `lyric/`: the lyric film machine (`lyric/README.md`) and the lyric system for viewers who have
+  never heard the legend (`lyric/system.md`). Songs go in the pack's `songs/` folder.
 
 ## Use it
 
 ```
 cd film
 npm install
-npm run studio          # Remotion Studio: scrub LogoFilm, LogoFilmClean, OpenCall, OpenCallFilm, ProofPluck, Checks
+npm run studio          # Remotion Studio: scrub LogoFilm, LogoFilmClean, OpenCall, OpenCallFilm, ImliFilm, LyricSyncTest, ProofPluck, Checks
 npm run film            # renders both logo films and the eight frames
 npm run open-call       # renders the 10 s open call and its four frames
 npm run open-call-film  # renders the 40 s open call film, its eight frames and the grid cover
 npm run score           # writes the open call film's music from open-call/beat-map.json
 npm run hero            # renders the open call film's hero proof and its eight frames
+npm run imli            # renders इमली क्यों? (its score first), its eight frames and the cover
 npm run proof           # re-renders the pluck proof
+```
+
+The lyric film machine (brief 04), for a song in `../songs/<song-name>/`:
+
+```
+npm run lyric:setup                  # once per computer: Python tools and models, about 3 GB
+npm run lyric:timing -- <song-name>  # stage 1: word-timestamps.json, phrases.json, timing-report.md
+npm run lyric:analyse -- <song-name> # stage 1: beat-map.json (tempo, bars, sections, energy, voice)
+npm run lyric:sync -- <song-name>    # stage 2: sync-test.mp4, to watch with sound
 ```
 
 ## Your sounds
@@ -96,21 +114,43 @@ from edge to edge in every frame.
 | 32.0 to 37.3 | The PACKED AT · PADHARO SA seal stamps down and the ground is the label again. तेरी बारी threads onto the line; then a piece a beat: the tied imli, the flavour band, 17 SAT OCTOBER, PADHARO SA · FREE ENTRY, UNPLUGGED COVERS · COME SING OR COME LISTEN. |
 | 37.3 to 40.0 | The blank tag swings back in, DM TO PERFORM drops, the thread ties off with the rakhi knot on the final Sa. The last frame is the grid cover. |
 
+## इमली क्यों?, bar by bar (`src/imli/`)
+
+90 BPM, 20 frames a beat, 8 bars. One Hindi hero word and one short English line at a time; the
+thread at y = 672 is one line from edge to edge in every frame. Why it exists and how to post it:
+`imli/creative-direction.md`.
+
+| Time | What happens |
+|------|--------------|
+| 0.0 to 2.7 | In the dark, one haldi light on the tied imli threaded on the string. इमली क्यों? pops in, WHY DO OUR SINGERS GET A CANDY? types, a rising question on the thread. The camera pans along the thread onto an imli wrapper. |
+| 2.7 to 5.3 | Tansen's tomb prints in through halftone dots. तानसेन, THE GREATEST SINGER OF AKBAR'S COURT. |
+| 5.3 to 8.0 | The thread is lifted into the tamarind tree beside the tomb, a stop a beat. HE RESTS IN GWALIOR, BESIDE AN IMLI TREE. |
+| 8.0 to 10.7 | One leaf lets go, rocks down and lands on the string. GWALIOR SAYS: CHEW ONE OF ITS LEAVES. |
+| 10.7 to 13.3 | मीठी आवाज़. The string plays a two bar tune with the leaf riding it. AND YOUR VOICE TURNS SWEET. |
+| 13.3 to 16.0 | The tree goes back into the line and the tomb prints out. A wrapper closes round the leaf, twists shut and is tied: इमली, SO EVERY DHWANIKUL SINGER GETS AN IMLI. |
+| 16.0 to 18.7 | The candy is flung to the top. A wrist rises to the thread and the kalava is tied on it: कुल, TIED WITH THE THREAD THAT MAKES YOU FAMILY. |
+| 18.7 to 21.3 | The wrapper folds into the ध्वनि KUL label on haldi, SWEET VOICE, TIED. types, the thread ties off. The last frame is the cover. |
+
 ## What is where
 
 | Folder | What |
 |--------|------|
-| `src/thread/` | The kalava thread (frozen after the proof). `ThreadPiece` draws it along any path; `pluck.ts` plucks it between two points or rings a loose end; `knot.ts` and `RakhiKnot` tie and untie the rakhi knot; `motion.ts` slides, trails and whips it. |
+| `src/thread/` | The kalava thread (frozen after the proof). `ThreadPiece` draws it along any path; `pluck.ts` plucks it between two points or rings a loose end; `knot.ts` and `RakhiKnot` tie and untie the rakhi knot; `motion.ts` slides, trails and whips it; `stringLine.ts` makes the one string at y = 672 that a film's score rings. |
 | `src/wrapper/` | The tied imli from `logo/dhwanikul-mark.svg` as separate layers, and `untwist.ts` / `OpenEnd` for the ends spinning open. |
 | `src/label/` | The label, the popping wordmark, the stamped seal and the typed tagline. `lockup.ts` holds the outlines from the lockup svg. |
 | `src/film/` | The logo film: timeline, the threads pulled off (`unravel.ts`), the returning thread (`heroThread.ts`), and the composition. |
 | `src/proofs/` | The approved pluck proof. The film reuses it as its second beat. |
 | `src/performer/` | Brief 03's frame parts: the wrapper doors (intro), the stage, the gift tag on its kalava loop, the PACKED AT card (outro), and the open call that puts them together. |
-| `src/openCall/` | The 40 s open call film: its clock and score, the one thread, the tag's pendulum, the camera, the scenes and their parts (tree, pod, wrists, ingredients panel, venue seal). See `open-call/implementation-notes.md`. |
+| `src/openCall/` | The 40 s open call film: its clock and score, the one thread, the tag's pendulum, the camera, the scenes and their parts (tree, pod, wrists, ingredients panel, venue seal). `parts/treeLift.ts` lifts Tansen's tree out of the thread for any film. See `open-call/implementation-notes.md`. |
 | `open-call/` | The film's creative direction, screenplay, beat map (the score) and implementation notes. |
+| `src/imli/` | इमली क्यों?: its clock and score, the string, the camera, Tansen's tomb, the dark stage and the wrapper behind the thread, the leaf, the candy and the wrist in front of it, the words. |
+| `imli/` | The reel's creative direction (the legend, checked, with its sources) and its beat map. |
+| `src/lyric/` | Brief 04's engine. So far the sync test (stage 2). |
+| `lyric/` | Brief 04's machine: the Python tools for stage 1 (`tools/`), how they work and how accurate they are (`README.md`), and the lyric system (`system.md`). |
 | `src/audio/` | Sound timing and loudness (written by `scripts/prepare-audio.mjs`) and `Cue`, which lands a sound's attack on a frame. |
 | `src/components/` | Print world (haldi ground, halftone, paper grain), the finger, font loading, brand type as live text (`Type.tsx`) and the candy pop (`pop.ts`). |
 | `src/lab/` | Checks: the thread against `svg-parts`, the imli against the logo, a test bench of every thread ability. |
+| `../songs/` | One folder per member's original song: the song, its lyrics, the artist's OK, and everything the machine makes from them. `_test-hinglish/` is the machine's own test song. |
 
 ## Choices worth knowing
 

@@ -18,6 +18,7 @@ Everything Claude Code needs to build Dhwanikul's posts and films in the locked 
 | By Wed 14 Oct | The 5 second logo film for the reminder reel | `briefs/02-logo-film.md` |
 | By Fri 16 Oct | Print the मीठी डोर tags, buy imli and kalava | `ritual/meethi-dor-tags-A4.pdf` |
 | By Fri 16 Oct | The performer clip frame, ready for the night's clips | `briefs/03-performer-clip-frame.md` |
+| Before Sat 17 Oct | Pin इमली क्यों?, so everyone knows why the imli | `film/out/imli-film.mp4` |
 | After Night 01 | The lyric film machine, for the first original song | `briefs/04-lyric-film-machine.md` |
 
 ## What's inside
@@ -32,7 +33,8 @@ Everything Claude Code needs to build Dhwanikul's posts and films in the locked 
 | `fonts/` | Modak, Big Shoulders Display, Khand (all free, SIL Open Font License) |
 | `briefs/` | The prompts to paste into Claude Code |
 | `reference/` | Logo film storyboard, Instagram grid test, the PYAAR? process guide, early roughs |
-| `film/` | Remotion project: the logo film (`film/out/logo-film.mp4`, clean opener, 8 frames), the Night 01 open call (`film/out/open-call.mp4`, 4 frames), the 40 s open call film बस तू बाकी है (`film/out/open-call-film.mp4`, 8 frames and the grid cover), the thread, the tied imli (see `film/README.md`) |
+| `film/` | Remotion project: the logo film (`film/out/logo-film.mp4`, clean opener, 8 frames), the Night 01 open call (`film/out/open-call.mp4`, 4 frames), the 40 s open call film बस तू बाकी है (`film/out/open-call-film.mp4`, 8 frames and the grid cover), इमली क्यों? (`film/out/imli-film.mp4`, the 21 s reel that explains the imli, to pin), the lyric film machine (`film/lyric/`), the thread, the tied imli (see `film/README.md`) |
+| `songs/` | One folder per member's original song, for the lyric films (see `songs/README.md`) |
 
 ## Golden rules (short version)
 

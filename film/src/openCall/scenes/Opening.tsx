@@ -12,9 +12,8 @@ import {popTransform} from '../../components/pop';
 import {LabelText, ModakText} from '../../components/Type';
 import {StageArt} from '../../performer/Stage';
 import {ThreadPiece} from '../../thread/ThreadPiece';
-import {cumulative, slice} from '../../thread/geometry';
 import {inCubic, inOutCubic, outCubic, releaseResponse, settle, span} from '../../utils/easing';
-import {add, clamp, deg, dist, lerp, mul, norm, perp, sub, type V} from '../../utils/math';
+import {clamp, deg, dist, lerp, type V} from '../../utils/math';
 import {OpenEnd} from '../../wrapper/OpenEnd';
 import {Body, KnotBlob, Letter, LooseEnd, TiedImli, Wraps} from '../../wrapper/TiedImli';
 import {FLAT, TWISTED, type OpenState} from '../../wrapper/untwist';
@@ -22,7 +21,8 @@ import {panAt} from '../camera';
 import {Pod} from '../parts/Pod';
 import {PrintMask} from '../parts/PrintMask';
 import {TreePrint} from '../parts/TreePrint';
-import {FALLING_POD, PODS, POD_SCALE, TREE_BASE, TREE_HALVES, TREE_LOOP, TREE_STOPS} from '../parts/tree';
+import {FALLING_POD, PODS, POD_SCALE, TREE_BASE} from '../parts/tree';
+import {liftAt, ringCrown, treeShape} from '../parts/treeLift';
 import {LEFT, RIGHT, THREAD_WIDTH, THREAD_Y, ringAt, restYAt, threadPoints, type Bend} from '../thread';
 import {HIT, seconds} from '../timing';
 
@@ -117,73 +117,8 @@ const DarkWorld: React.FC<{frame: number}> = ({frame}) => {
 /** When the tree has been let go again, flat on the line. */
 const UNPICKED = HIT.podFalls + 16;
 
-/**
- * How far the thread has been lifted into the tree: 0 flat on the line, 1 trunk and branches, 2 the
- * lower canopy, 3 the upper canopy, 4 the outline closed at the top. Each note snaps it up to the
- * next stop with a little overshoot, like a string; the last closes it exactly. When the pod falls,
- * the tree is let go back down into the line.
- */
-const liftAt = (frame: number) => {
-  let q = 0;
-  for (let i = 0; i < HIT.draw.length; i++) {
-    if (frame < HIT.draw[i]) break;
-    const t = seconds(frame - HIT.draw[i]);
-    q = i + (i === HIT.draw.length - 1 ? outCubic(clamp(t / 0.3)) : settle(t, 3.2, 0.55));
-  }
-  return q * (1 - span(frame, HIT.podFalls, UNPICKED, inOutCubic));
-};
-
-/** Arc length up one half of the tree for a lift q, moving evenly between the stops. */
-const climb = (stops: number[], q: number) => {
-  const i = Math.min(stops.length - 2, Math.max(0, Math.floor(q)));
-  return Math.min(stops[stops.length - 1], lerp(stops[i], stops[i + 1], q - i));
-};
-
-const LOOP_LEN = cumulative(TREE_LOOP)[TREE_LOOP.length - 1];
-
-/** How much of its height the crown above the climbing points has: flat on the line at first, then a low dome, the whole crown at the top. */
-const domeAt = (q: number) => (q <= 1 ? 0.45 * q : q <= 3 ? 0.45 : 0.45 + 0.55 * (q - 3));
-
-/**
- * The tree as lifted so far: each half from its trunk base up to its climbing point, and the crown:
- * the rest of the outline between the two climbing points, pressed down towards them into a low
- * leafy dome (and, while the trunk is still rising, drawn in over it). So at every stop it is a tree,
- * a little taller and rounder on each note.
- */
-const treeShape = (q: number) => {
-  const sL = climb(TREE_STOPS.left, q);
-  const sR = climb(TREE_STOPS.right, q);
-  const left = slice(TREE_HALVES.left, 0, sL);
-  const right = slice(TREE_HALVES.right, 0, sR);
-  const a = left[left.length - 1];
-  const ab = sub(right[right.length - 1], a);
-  const len2 = ab[0] * ab[0] + ab[1] * ab[1];
-  const f = domeAt(q);
-  const reach = clamp(q);
-  const crown = slice(TREE_LOOP, sL, LOOP_LEN - sR).map((p): V => {
-    const t = len2 > 0 ? ((p[0] - a[0]) * ab[0] + (p[1] - a[1]) * ab[1]) / len2 : 0;
-    const out = t < 0 ? t * reach : t > 1 ? 1 + (t - 1) * reach : t;
-    const foot = add(a, mul(ab, t));
-    return add(add(a, mul(ab, out)), mul(sub(p, foot), f));
-  });
-  return {left, crown, right};
-};
-
-/** The crown rings on every note that lifts it, like a plucked string between the two climbing points. */
-const ringCrown = (frame: number, crown: V[]): V[] => {
-  const a = crown[0];
-  const b = crown[crown.length - 1];
-  const len = dist(a, b);
-  if (len < 2) return crown;
-  const across = norm(perp(sub(b, a)));
-  let ring = 0;
-  for (const at of HIT.draw) {
-    const age = frame - at;
-    if (age >= 0) ring += 12 * (age % 2 === 0 ? 1 : -1) * Math.exp(-seconds(age) / 0.35);
-  }
-  ring *= Math.min(1, len / 300);
-  return crown.map((p, i) => add(p, mul(across, ring * Math.sin((Math.PI * i) / (crown.length - 1)))));
-};
+/** How far the thread has been lifted into the tree (parts/treeLift.ts): a stop per note, let go as the pod falls. */
+const lift = (frame: number) => liftAt(frame, HIT.draw, [HIT.podFalls, UNPICKED]);
 
 /** Where the tree's outline meets the line it moves with the line: bent with it and ringing, fading out up the trunk. */
 const withLine = (frame: number, bend: Bend, pts: V[]): V[] =>
@@ -313,7 +248,7 @@ const PAN_MATERIAL = (31 * STRIPE_REPEAT) / 1080;
 /** The thread from the first frame to the end of scene 3: one line from edge to edge (frame coordinates). */
 export const openingThread = (frame: number): V[] => {
   const pan = panAt(frame);
-  const q = liftAt(frame);
+  const q = lift(frame);
   if (q <= 0) {
     // Scene 1 and the pan: plucked by the hand. Scene 3: caught pod, candy necks, the fling.
     const f = fingerAt(frame);
@@ -325,7 +260,7 @@ export const openingThread = (frame: number): V[] => {
   const tree = treeShape(q);
   const pts = [
     ...threadPoints(frame, bend, LEFT, TREE_BASE.left),
-    ...withLine(frame, bend, [...tree.left.slice(1), ...ringCrown(frame, tree.crown).slice(1, -1), ...[...tree.right].reverse().slice(0, -1)]),
+    ...withLine(frame, bend, [...tree.left.slice(1), ...ringCrown(frame, tree.crown, HIT.draw).slice(1, -1), ...[...tree.right].reverse().slice(0, -1)]),
     ...threadPoints(frame, bend, TREE_BASE.right, RIGHT),
   ];
   // Where the two climbing points meet at the top they are one point.
@@ -374,7 +309,7 @@ const HangingPods: React.FC<{frame: number}> = ({frame}) => {
 
 /** On the thread layer, under the thread: the tree printed inside the outline, and its pods. */
 export const OpeningTree: React.FC<{frame: number}> = ({frame}) => {
-  const q = liftAt(frame);
+  const q = lift(frame);
   const tree = q > 0 ? treeShape(q) : null;
   return (
     <g>
@@ -408,7 +343,7 @@ const LEAVES = [
 ];
 
 /** A tamarind leaf: a midrib with small oblong leaflets in pairs, swept forward like a feather. */
-const Leaf: React.FC = () => (
+export const Leaf: React.FC = () => (
   <g>
     {Array.from({length: 6}, (_, i) => {
       const x = -36 + i * 13;

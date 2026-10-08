@@ -1,0 +1,374 @@
+{
+ "score": "इमली क्यों? · why the imli, played on the thread, the wrapper and the stamp",
+ "bpm": 90,
+ "fps": 30,
+ "framesPerBeat": 20,
+ "beatsPerBar": 4,
+ "bars": 8,
+ "durationSec": 21.333333333333332,
+ "sounds": {
+  "pluck": "the thread (melody, pitched; muted for ka)",
+  "pluckPa": "tanpura Pa string (the pluck a fourth down)",
+  "pluckLow": "tanpura low Sa string (the pluck an octave down)",
+  "crinkle": "the wrapper (na, ti, rustles, swishes)",
+  "thud": "the stamp (dha, ge, impacts)"
+ },
+ "raga": {
+  "name": "Bhupali",
+  "semitonesFromSa": {
+   "S,": -12,
+   "P,": -5,
+   "D,": -3,
+   "S": 0,
+   "R": 2,
+   "G": 4,
+   "P": 7,
+   "D": 9,
+   "S'": 12
+  }
+ },
+ "tune": {
+  "name": "the two bar tune",
+  "barA": [
+   [
+    "S",
+    1
+   ],
+   [
+    "R",
+    1.5
+   ],
+   [
+    "G",
+    2
+   ],
+   [
+    "P",
+    3
+   ],
+   [
+    "G",
+    4
+   ]
+  ],
+  "barB": [
+   [
+    "R",
+    1
+   ],
+   [
+    "S",
+    1.5
+   ],
+   [
+    "D,",
+    2
+   ],
+   [
+    "S",
+    3
+   ]
+  ],
+  "note": "[note, beat]. Asked in bar 1 (rising, unresolved on Pa), answered in full in bars 9 to 10, resolved to Sa on the final knot."
+ },
+ "grooves": {
+  "keherwa": [
+   [
+    "thud",
+    1,
+    1.0
+   ],
+   [
+    "thud",
+    1.5,
+    0.45
+   ],
+   [
+    "crinkle",
+    2,
+    0.7
+   ],
+   [
+    "crinkle",
+    2.5,
+    0.35
+   ],
+   [
+    "crinkle",
+    3,
+    0.7
+   ],
+   [
+    "pluckMuted",
+    3.5,
+    0.5
+   ],
+   [
+    "thud",
+    4,
+    0.55
+   ],
+   [
+    "crinkle",
+    4.5,
+    0.4
+   ]
+  ],
+  "light": [
+   [
+    "thud",
+    1,
+    0.9
+   ],
+   [
+    "crinkle",
+    2,
+    0.6
+   ],
+   [
+    "thud",
+    3,
+    0.6
+   ],
+   [
+    "crinkle",
+    4,
+    0.6
+   ]
+  ],
+  "half": [
+   [
+    "thud",
+    1,
+    0.9
+   ],
+   [
+    "thud",
+    3,
+    0.7
+   ]
+  ]
+ },
+ "barByBar": [
+  {
+   "bar": 1,
+   "scene": 1,
+   "drone": "fade in",
+   "groove": null,
+   "events": [
+    [
+     "pluck",
+     "S",
+     1,
+     "the candy on the thread, इमली क्यों? pops",
+     0.85
+    ],
+    [
+     "pluck",
+     "R",
+     3,
+     ""
+    ],
+    [
+     "pluck",
+     "G",
+     3.5,
+     ""
+    ],
+    [
+     "pluck",
+     "P",
+     4,
+     "the question, left hanging"
+    ]
+   ]
+  },
+  {
+   "bar": 2,
+   "scene": 2,
+   "drone": "on",
+   "groove": null,
+   "events": [
+    [
+     "pluck",
+     "S'",
+     1,
+     "the pan lands in Gwalior"
+    ],
+    [
+     "crinkle",
+     null,
+     1.5,
+     "the tomb prints in"
+    ],
+    [
+     "pluck",
+     "G",
+     2,
+     "तानसेन pops"
+    ]
+   ]
+  },
+  {
+   "bar": 3,
+   "scene": 3,
+   "drone": "on",
+   "groove": null,
+   "events": [
+    [
+     "pluck",
+     "G",
+     1,
+     "the tree: trunk"
+    ],
+    [
+     "pluck",
+     "R",
+     2,
+     "lower crown"
+    ],
+    [
+     "pluck",
+     "S",
+     3,
+     "upper crown"
+    ],
+    [
+     "pluck",
+     "D,",
+     4,
+     "closed at the top"
+    ]
+   ]
+  },
+  {
+   "bar": 4,
+   "scene": 4,
+   "drone": "on",
+   "groove": null,
+   "events": [
+    [
+     "crinkle",
+     null,
+     1,
+     "a leaf lets go, soft"
+    ],
+    [
+     "pluck",
+     "P",
+     4,
+     "the leaf lands on the string",
+     0.55
+    ]
+   ]
+  },
+  {
+   "bar": 5,
+   "scene": 5,
+   "drone": "on",
+   "groove": "light",
+   "events": [
+    [
+     "tune",
+     "barA",
+     1,
+     "मीठी आवाज़ pops with the tune"
+    ]
+   ]
+  },
+  {
+   "bar": 6,
+   "scene": 6,
+   "drone": "on",
+   "groove": "keherwa",
+   "events": [
+    [
+     "tune",
+     "barB",
+     1,
+     ""
+    ],
+    [
+     "crinkle",
+     null,
+     1.5,
+     "a wrapper pops round the leaf"
+    ],
+    [
+     "crinkle",
+     "untwist",
+     2,
+     "it twists shut"
+    ],
+    [
+     "thud",
+     null,
+     4,
+     "the knot, soft",
+     0.5
+    ],
+    [
+     "pluck",
+     "S",
+     4,
+     "the knot: the tied imli, इमली pops"
+    ]
+   ]
+  },
+  {
+   "bar": 7,
+   "scene": 7,
+   "drone": "on",
+   "groove": "keherwa",
+   "events": [
+    [
+     "crinkle",
+     "swish",
+     1,
+     "the candy is flung up"
+    ],
+    [
+     "glide",
+     "S to P",
+     1.5,
+     "the kalava tightens round the wrist, pitch rising"
+    ],
+    [
+     "thud",
+     null,
+     3,
+     "the rakhi knot, soft",
+     0.5
+    ],
+    [
+     "pluck",
+     "S",
+     3,
+     "कुल pops"
+    ]
+   ]
+  },
+  {
+   "bar": 8,
+   "scene": 8,
+   "drone": "on",
+   "groove": null,
+   "events": [
+    [
+     "thud",
+     "stamp",
+     1,
+     "the wrapper becomes the label: ध्वनि KUL"
+    ],
+    [
+     "pluck",
+     "S",
+     3,
+     "the thread ties off, rings to the end",
+     0.85
+    ]
+   ]
+  }
+ ],
+ "visualHits": []
+}

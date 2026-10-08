@@ -1,9 +1,9 @@
-// Writes the open call film's music from its score, open-call/beat-map.json, played on the three
-// prepared brand sounds (the thread, the wrapper and the stamp):
+// Writes a film's music from its score (a beat map), played on the three prepared brand sounds (the
+// thread, the wrapper and the stamp). For the open call film, open-call/beat-map.json becomes
 //   public/audio/open-call-score.wav   the whole 40 s mix, one file, sample exact
 //   src/openCall/score.json            every hit with its frame, so the picture moves on the music
 // Run scripts/prepare-audio.mjs first; a recorded pluck, crinkle or thud flows straight into the score.
-// Usage: node scripts/make-score.mjs
+// Usage: node scripts/make-score.mjs [beat-map.json wav score.json]   (the open call by default)
 
 import fs from 'node:fs';
 import path from 'node:path';
@@ -11,7 +11,10 @@ import {fileURLToPath} from 'node:url';
 import {readWav, writeWav16} from './wav.mjs';
 
 const film = path.join(path.dirname(fileURLToPath(import.meta.url)), '..');
-const map = JSON.parse(fs.readFileSync(path.join(film, 'open-call', 'beat-map.json'), 'utf8'));
+const [mapPath, wavPath, hitsPath] = process.argv.length > 4
+  ? process.argv.slice(2, 5).map((p) => path.resolve(p))
+  : [path.join(film, 'open-call', 'beat-map.json'), path.join(film, 'public', 'audio', 'open-call-score.wav'), path.join(film, 'src', 'openCall', 'score.json')];
+const map = JSON.parse(fs.readFileSync(mapPath, 'utf8'));
 
 const SR = 48000;
 /** Every prepared sound has its attack exactly this far into its file (prepare-audio.mjs). */
@@ -176,15 +179,12 @@ if (STEM) {
   console.log(`stem ${STEM} written to out/tmp`);
   process.exit(0);
 }
-writeWav16(path.join(film, 'public', 'audio', 'open-call-score.wav'), out, SR);
+writeWav16(wavPath, out, SR);
 hits.sort((a, b) => a.frame - b.frame);
-fs.writeFileSync(
-  path.join(film, 'src', 'openCall', 'score.json'),
-  JSON.stringify({fps: FPS, framesPerBeat: FPB, beatsPerBar: BPB, silences, hits}),
-);
+fs.writeFileSync(hitsPath, JSON.stringify({fps: FPS, framesPerBeat: FPB, beatsPerBar: BPB, silences, hits}));
 let rms = 0;
 for (const v of out) rms += v * v;
 console.log(
-  `open-call-score.wav: ${map.durationSec} s, ${hits.length} hits, ${silences.length} silence(s), ` +
+  `${path.basename(wavPath)}: ${map.durationSec} s, ${hits.length} hits, ${silences.length} silence(s), ` +
     `rms ${(10 * Math.log10(rms / out.length)).toFixed(1)} dBFS`,
 );
