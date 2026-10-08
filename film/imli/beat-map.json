@@ -1,11 +1,11 @@
 {
- "score": "इमली क्यों? · why the imli, played on the thread, the wrapper and the stamp",
+ "score": "इमली क्यों? · why the imli and the thread, played on the thread, the wrapper and the stamp",
  "bpm": 90,
  "fps": 30,
  "framesPerBeat": 20,
  "beatsPerBar": 4,
- "bars": 8,
- "durationSec": 21.333333333333332,
+ "bars": 15,
+ "durationSec": 40.0,
  "sounds": {
   "pluck": "the thread (melody, pitched; muted for ka)",
   "pluckPa": "tanpura Pa string (the pluck a fourth down)",
@@ -69,7 +69,7 @@
     3
    ]
   ],
-  "note": "[note, beat]. Asked in bar 1 (rising, unresolved on Pa), answered in full in bars 9 to 10, resolved to Sa on the final knot."
+  "note": "[note, beat]. Sung for the sweet voice in bars 8 to 9, and again at the peak in bars 12 to 13, where it resolves to Sa."
  },
  "grooves": {
   "keherwa": [
@@ -186,6 +186,173 @@
   {
    "bar": 2,
    "scene": 2,
+   "drone": null,
+   "groove": null,
+   "events": [
+    [
+     "crinkle",
+     "swish",
+     1,
+     "the thread flings the candy off"
+    ],
+    [
+     "pluck",
+     "S",
+     2,
+     "the hand plucks one Sa in the dark: तानसेन",
+     0.9
+    ]
+   ],
+   "silence": [
+    1.5,
+    2
+   ]
+  },
+  {
+   "bar": 3,
+   "scene": 3,
+   "drone": "on",
+   "groove": null,
+   "events": [
+    [
+     "pluck",
+     "S,",
+     1,
+     "lamp",
+     0.62
+    ],
+    [
+     "pluck",
+     "P,",
+     1.5,
+     "lamp",
+     0.66
+    ],
+    [
+     "pluck",
+     "S",
+     2,
+     "lamp",
+     0.7
+    ],
+    [
+     "pluck",
+     "P",
+     2.5,
+     "lamp",
+     0.76
+    ],
+    [
+     "pluck",
+     "S'",
+     3,
+     "lamp",
+     0.82
+    ]
+   ]
+  },
+  {
+   "bar": 4,
+   "scene": 4,
+   "drone": "on",
+   "groove": null,
+   "events": [
+    [
+     "thud",
+     "thunder",
+     1,
+     "thunder: मल्हार"
+    ],
+    [
+     "rain",
+     4.2,
+     1.1,
+     "the rain",
+     0.42
+    ],
+    [
+     "pluck",
+     "S'",
+     1.5,
+     "drop",
+     0.42
+    ],
+    [
+     "pluck",
+     "D",
+     1.75,
+     "drop",
+     0.34
+    ],
+    [
+     "crinkle",
+     "hiss",
+     2,
+     "a lamp goes out"
+    ],
+    [
+     "pluck",
+     "P,",
+     2.25,
+     "drop",
+     0.4
+    ],
+    [
+     "crinkle",
+     "hiss",
+     2.5,
+     "a lamp goes out"
+    ],
+    [
+     "pluck",
+     "G",
+     2.75,
+     "drop",
+     0.38
+    ],
+    [
+     "crinkle",
+     "hiss",
+     3,
+     "a lamp goes out"
+    ],
+    [
+     "pluck",
+     "R",
+     3.25,
+     "drop",
+     0.36
+    ],
+    [
+     "crinkle",
+     "hiss",
+     3.5,
+     "a lamp goes out"
+    ],
+    [
+     "crinkle",
+     "hiss",
+     3.75,
+     "the last lamp goes out"
+    ],
+    [
+     "pluck",
+     "D,",
+     3.75,
+     "drop",
+     0.4
+    ],
+    [
+     "crinkle",
+     "swish",
+     4,
+     "the pan"
+    ]
+   ]
+  },
+  {
+   "bar": 5,
+   "scene": 5,
    "drone": "on",
    "groove": null,
    "events": [
@@ -198,20 +365,20 @@
     [
      "crinkle",
      null,
-     1.5,
+     1.2,
      "the tomb prints in"
     ],
     [
      "pluck",
      "G",
      2,
-     "तानसेन pops"
+     "ग्वालियर pops"
     ]
    ]
   },
   {
-   "bar": 3,
-   "scene": 3,
+   "bar": 6,
+   "scene": 6,
    "drone": "on",
    "groove": null,
    "events": [
@@ -242,8 +409,8 @@
    ]
   },
   {
-   "bar": 4,
-   "scene": 4,
+   "bar": 7,
+   "scene": 7,
    "drone": "on",
    "groove": null,
    "events": [
@@ -263,8 +430,8 @@
    ]
   },
   {
-   "bar": 5,
-   "scene": 5,
+   "bar": 8,
+   "scene": 8,
    "drone": "on",
    "groove": "light",
    "events": [
@@ -277,8 +444,8 @@
    ]
   },
   {
-   "bar": 6,
-   "scene": 6,
+   "bar": 9,
+   "scene": 9,
    "drone": "on",
    "groove": "keherwa",
    "events": [
@@ -316,17 +483,43 @@
    ]
   },
   {
-   "bar": 7,
-   "scene": 7,
+   "bar": 10,
+   "scene": 10,
    "drone": "on",
-   "groove": "keherwa",
+   "groove": "half",
    "events": [
     [
      "crinkle",
      "swish",
      1,
-     "the candy is flung up"
+     "the candy is flung off"
     ],
+    [
+     "pluck",
+     "R",
+     2,
+     "और धागा? pops"
+    ],
+    [
+     "pluck",
+     "G",
+     2.5,
+     ""
+    ],
+    [
+     "pluck",
+     "P",
+     3,
+     "the second question, left hanging"
+    ]
+   ]
+  },
+  {
+   "bar": 11,
+   "scene": 11,
+   "drone": "on",
+   "groove": "keherwa",
+   "events": [
     [
      "glide",
      "S to P",
@@ -344,21 +537,91 @@
      "pluck",
      "S",
      3,
-     "कुल pops"
+     "the knot"
     ]
    ]
   },
   {
-   "bar": 8,
-   "scene": 8,
+   "bar": 12,
+   "scene": 12,
+   "drone": "loud",
+   "groove": "keherwa",
+   "events": [
+    [
+     "tune",
+     "barA",
+     1,
+     "PULP floods, कुल pops with the tune"
+    ]
+   ]
+  },
+  {
+   "bar": 13,
+   "scene": 13,
+   "drone": "on",
+   "groove": "light",
+   "events": [
+    [
+     "thud",
+     null,
+     1,
+     "the candy lands back on the packet",
+     0.9
+    ],
+    [
+     "tune",
+     "barB",
+     1,
+     ""
+    ],
+    [
+     "crinkle",
+     "roll",
+     1.2,
+     "the directions unroll"
+    ]
+   ]
+  },
+  {
+   "bar": 14,
+   "scene": 14,
    "drone": "on",
    "groove": null,
    "events": [
     [
      "thud",
      "stamp",
-     1,
+     2,
      "the wrapper becomes the label: ध्वनि KUL"
+    ],
+    [
+     "pluck",
+     "S",
+     3,
+     "ध्वनि: SOUND",
+     0.6
+    ],
+    [
+     "pluck",
+     "P",
+     4,
+     "KUL: FAMILY",
+     0.6
+    ]
+   ]
+  },
+  {
+   "bar": 15,
+   "scene": 15,
+   "drone": "on",
+   "groove": null,
+   "events": [
+    [
+     "pluck",
+     "G",
+     1,
+     "SWEET VOICE, TIED.",
+     0.5
     ],
     [
      "pluck",
@@ -370,5 +633,10 @@
    ]
   }
  ],
- "visualHits": []
+ "visualHits": [],
+ "events": {
+  "rain": "[\"rain\", beats, start beat, label, level]: soft irregular ticks of the wrapper, rain on paper",
+  "thud thunder": "the stamp slowed right down, twice: thunder",
+  "crinkle hiss": "a short soft bite of wrapper: a lamp put out"
+ }
 }

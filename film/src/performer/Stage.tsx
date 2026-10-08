@@ -13,7 +13,7 @@ export const SPOT: Spot = {cx: 540, cy: 1110, r: 360, falloff: 120};
 export type ClearBox = {x0: number; y0: number; x1: number; y1: number};
 
 /** Haldi dots around the edge of the light, shrinking outwards. */
-const falloffDots = (spot: Spot, clear: ClearBox[]) => {
+export const falloffDots = (spot: Spot, clear: ClearBox[]) => {
   const grid = 13;
   const rot = (18 * Math.PI) / 180;
   const c = Math.cos(rot);

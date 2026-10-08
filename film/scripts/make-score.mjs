@@ -84,6 +84,14 @@ const thud = (frame, vel, label = '') => {
   if (voice('groove')) place(SRC.thud, frame, {gain: 0.85 * vel, rate: vel >= 0.75 ? 1 : 0.86});
   hits.push({frame, kind: 'thud', vel, label});
 };
+const thunder = (frame, label = '') => {
+  // The stamp slowed right down, and again a little later and lower: a roll of thunder.
+  if (voice('groove')) {
+    place(SRC.thud, frame, {gain: 0.95, rate: 0.5});
+    place(SRC.thud, frame + 5, {gain: 0.55, rate: 0.42});
+  }
+  hits.push({frame, kind: 'thud', vel: 1, label});
+};
 let slice = 0;
 const SLICES = [0, 0.17, 0.34];
 const tick = (frame, vel) => {
@@ -105,8 +113,29 @@ const crinkle = (frame, variant, label = '') => {
     place(SRC.crinkle, frame, {gain: 0.9, keep: 0.06});
     place(SRC.crinkle, frame + 1.5, {gain: 0.7, keep: 0.05, from: 0.17});
     place(SRC.thud, frame, {gain: 0.25, rate: 1.7});
-  } else place(SRC.crinkle, frame, {gain: 0.32});
+  } else if (variant === 'hiss') place(SRC.crinkle, frame, {gain: 0.4, keep: 0.1, rate: 1.5, from: 0.17});
+  else place(SRC.crinkle, frame, {gain: 0.32});
   hits.push({frame, kind: 'crinkle', variant: variant ?? 'rustle', label});
+};
+
+/** A small seeded generator, so the rain falls the same way on every render. */
+const seededRandom = (seed) => () => {
+  seed = (seed + 0x6d2b79f5) | 0;
+  let t = Math.imul(seed ^ (seed >>> 15), 1 | seed);
+  t = (t + Math.imul(t ^ (t >>> 7), 61 | t)) ^ t;
+  return ((t ^ (t >>> 14)) >>> 0) / 4294967296;
+};
+const rain = (frame, beats, level, label = '') => {
+  // Rain on paper: soft irregular bites of the wrapper, about six a beat, thinning out at the end.
+  const rnd = seededRandom(frame * 7919 + 17);
+  const n = Math.round(beats * 6);
+  for (let i = 0; i < n; i++) {
+    const f = frame + ((i + rnd()) * beats * FPB) / n;
+    const tail = Math.min(1, (n - i) / (0.3 * n));
+    const gain = level * (0.45 + 0.55 * rnd()) * Math.min(1, (i + 1) / 4) * tail;
+    if (voice('groove')) place(SRC.crinkle, f, {gain, keep: 0.035 + 0.05 * rnd(), from: SLICES[Math.floor(rnd() * SLICES.length)], rate: 1.15 + 0.6 * rnd()});
+  }
+  hits.push({frame, kind: 'crinkle', variant: 'rain', label});
 };
 const glide = (frame, spec, label = '') => {
   const [a, , b] = spec.split(' ');
@@ -150,9 +179,11 @@ for (const b of map.barByBar) {
     const frame = frameOf(b.bar, beat);
     if (what === 'pluck') note(frame, arg, vel ?? 0.7, label);
     else if (what === 'tune') for (const [n, nb] of map.tune[arg]) note(frameOf(b.bar, nb), n, 0.75, nb === 1 ? label : '');
+    else if (what === 'thud' && arg === 'thunder') thunder(frame, label);
     else if (what === 'thud') thud(frame, arg === 'stamp' ? 1.15 : (vel ?? 0.8), label);
     else if (what === 'crinkle') crinkle(frame, arg, label);
     else if (what === 'glide') glide(frame, arg, label);
+    else if (what === 'rain') rain(frame, arg, vel ?? 0.4, label);
   }
   if (b.silence) silences.push([frameOf(b.bar, b.silence[0]), frameOf(b.bar, b.silence[1])]);
 }

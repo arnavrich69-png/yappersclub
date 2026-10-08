@@ -14,7 +14,7 @@ export const HERO_Y = 1180;
 export const LINE_Y = 1290;
 
 /** A Modak hero word that pops in on `at` and prints out over [out, out + 8). */
-export const HeroWord: React.FC<{frame: number; id: string; text: string; at: number; out?: number; size?: number; x?: number}> = ({
+export const HeroWord: React.FC<{frame: number; id: string; text: string; at: number; out?: number; size?: number; x?: number; y?: number}> = ({
   frame,
   id,
   text,
@@ -22,6 +22,7 @@ export const HeroWord: React.FC<{frame: number; id: string; text: string; at: nu
   out = Infinity,
   size = 180,
   x = 540,
+  y = HERO_Y,
 }) => {
   if (frame < at || frame >= out + 8) return null;
   const p = 1 - span(frame, out, out + 8, inOutCubic);
@@ -29,8 +30,8 @@ export const HeroWord: React.FC<{frame: number; id: string; text: string; at: nu
     <g>
       {p < 1 ? <PrintMask id={`${id}-out`} p={p} /> : null}
       <g mask={p < 1 ? `url(#${id}-out)` : undefined}>
-        <g transform={popTransform(seconds(frame - at), x, HERO_Y)}>
-          <ModakText x={x} y={HERO_Y} size={size} text={text} dressed={frame >= at + 1} />
+        <g transform={popTransform(seconds(frame - at), x, y)}>
+          <ModakText x={x} y={y} size={size} text={text} dressed={frame >= at + 1} />
         </g>
       </g>
     </g>
@@ -46,13 +47,14 @@ const typed = (frame: number, start: number, end: number, length: number) => {
 };
 
 /** An English support line (or two) under the hero word. */
-export const EnglishLine: React.FC<{frame: number; lines: string[]; start: number; end?: number; fill?: string; x?: number}> = ({
+export const EnglishLine: React.FC<{frame: number; lines: string[]; start: number; end?: number; fill?: string; x?: number; y?: number}> = ({
   frame,
   lines,
   start,
   end = Infinity,
   fill = C.cream,
   x = 540,
+  y = LINE_Y,
 }) => {
   const all = lines.join(' ').length;
   const shown = Number.isFinite(end) ? typed(frame, start, end, all) : Math.max(0, (frame - start) * 2);
@@ -62,7 +64,7 @@ export const EnglishLine: React.FC<{frame: number; lines: string[]; start: numbe
       {lines.map((text, i) => {
         const n = Math.max(0, Math.min(text.length, shown - used));
         used += text.length + 1;
-        return <LabelText key={text} x={x} y={LINE_Y + i * 52} size={36} weight={900} tracking={0.12} anchor="middle" fill={fill} text={text} shown={n} />;
+        return <LabelText key={text} x={x} y={y + i * 52} size={36} weight={900} tracking={0.12} anchor="middle" fill={fill} text={text} shown={n} />;
       })}
     </g>
   );

@@ -1,5 +1,5 @@
-// Renders इमली क्यों?, the 21 s film that explains the imli: out/imli-film.mp4, eight frames and
-// the cover (its last frame) in out/imli-film-frames/.
+// Renders इमली क्यों?, the 40 s film that explains the imli and the thread: out/imli-film.mp4, a
+// frame for each moment of the story and the cover (its last frame) in out/imli-film-frames/.
 // Usage: npm run imli
 //
 // The score is rebuilt from imli/beat-map.json first, so a recorded pluck, crinkle or thud in the
@@ -21,14 +21,18 @@ const OUT = 'out/imli-film.mp4';
 const DIR = 'out/imli-film-frames';
 
 const FRAMES = [
-  [40, 'why'],
-  [130, 'tansen'],
-  [236, 'the-tree'],
-  [300, 'the-leaf'],
-  [352, 'sweet-voice'],
-  [470, 'imli'],
-  [545, 'kul'],
-  [639, 'cover'],
+  [66, 'why'],
+  [135, 'tansen'],
+  [214, 'deepak-lamps'],
+  [286, 'malhar-rain'],
+  [470, 'the-tree'],
+  [620, 'sweet-voice'],
+  [712, 'imli'],
+  [860, 'ganda-bandhan'],
+  [940, 'kul'],
+  [1044, 'directions'],
+  [1110, 'sound-family'],
+  [1199, 'cover'],
 ];
 
 node('prepare-audio.mjs');
@@ -49,7 +53,7 @@ npx([
 console.log(`written ${OUT}`);
 
 for (const [frame, name] of FRAMES) {
-  const file = `${DIR}/imli-film-${String(frame).padStart(3, '0')}-${name}.png`;
+  const file = `${DIR}/imli-film-${String(frame).padStart(4, '0')}-${name}.png`;
   remotion(['still', 'src/index.ts', ID, file, `--frame=${frame}`]);
 }
 console.log(`frames written to ${DIR}/`);

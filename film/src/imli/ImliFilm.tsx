@@ -1,12 +1,15 @@
-// इमली क्यों? · why the imli. A 21 s film that tells anyone, in the brand's own world, why Dhwanikul
-// gives its singers a candy: Tansen, the greatest singer of Akbar's court, rests in Gwalior beside a
-// tamarind tree; Gwalior says chew one of its leaves and your voice turns sweet. So every singer
-// gets an imli, tied with the thread that makes you family: ध्वनि KUL. See imli/creative-direction.md.
+// इमली क्यों? · why the imli, and why the thread. A 40 s film that tells anyone, in the brand's own
+// world, the two stories under Dhwanikul. Tansen, the greatest singer of Akbar's court, whose raags
+// lit lamps and brought the rain, rests in Gwalior beside a tamarind tree; Gwalior says chew one of
+// its leaves and your voice turns sweet, so every singer gets an imli. And in Indian music a guru ties
+// a thread on a student's wrist, the ganda bandhan, and it makes them family: कुल. Then the packet's
+// directions, and the name: ध्वनि, sound; KUL, family. See imli/creative-direction.md.
 //
-// Layers, back to front: the world behind the thread (the dark stage, the wrapper, the tomb, the
-// words, the label) under the camera; the thread layer (the tree it is lifted into and the thread)
-// on the grid line; the world in front (the candy, the leaf, the wrist, the knot) under the camera;
-// the wordmark on top.
+// Layers, back to front: the world behind the thread (the dark stage and its lights and rain, the
+// wrapper, the tomb, the words, PULP, the directions, the label) under the camera; the thread layer
+// (the tree it is lifted into and the thread) on the grid line; the world in front (the candy, the
+// hand, the lamps, the leaf, the wrists, the knot) under the camera; on top, unmoved by the camera,
+// the words of the thread's story, the candy back on the packet, the wordmark and its meaning.
 
 import React from 'react';
 import {AbsoluteFill, Html5Audio, staticFile, useCurrentFrame} from 'remotion';
@@ -26,7 +29,12 @@ import {inOutCubic, settle, span} from '../utils/easing';
 import {clamp, deg, dist, type V} from '../utils/math';
 import {cameraAt, panAt, screenTransform, shakeAt, worldTransform} from './camera';
 import {DarkBack, WrapperBack} from './scenes/Backs';
-import {HookCandy, KulWrist, LeafCandy, Leafy, TieOff, bendAt} from './scenes/Things';
+import {Hand} from './scenes/Hand';
+import {LampSteam, Lamps} from './scenes/Lamps';
+import {Meanings} from './scenes/Meanings';
+import {RainSplash} from './scenes/Rain';
+import {HookCandy, KulWrists, LeafCandy, Leafy, ReturnCandy, TieOff, bendAt} from './scenes/Things';
+import {EnglishLine, HeroWord} from './scenes/Words';
 import {ringAt, threadPoints} from './thread';
 import {HIT, IMF, seconds} from './timing';
 
@@ -118,6 +126,20 @@ const Svg: React.FC<{children: React.ReactNode; background?: string}> = ({childr
 const POPS = [0, 2, 5, 7, 9];
 const WORDMARK_AT = HIT.label + 4;
 
+/** Bars 10 to 12 put their words above the thread: the wrists fill the frame below it. कुल's ु hangs low, so its line sits lower. */
+const TOP = {hero: 382, line: 452, size: 160, kulHero: 360, kulLine: 474};
+
+const ThreadStory: React.FC<{frame: number}> = ({frame}) => (
+  <g>
+    <HeroWord frame={frame} id="imli-dhaga" text="और धागा?" at={HIT.thread} out={HIT.ganda - 8} size={TOP.size} y={TOP.hero} />
+    <EnglishLine frame={frame} lines={['AND WHY THE RED THREAD?']} start={HIT.line9} end={HIT.ganda - 2} y={TOP.line} />
+    <HeroWord frame={frame} id="imli-ganda" text="गंडा बंधन" at={HIT.ganda} out={HIT.kul - 8} size={TOP.size} y={TOP.hero} />
+    <EnglishLine frame={frame} lines={['GURUS TIE IT ON THEIR STUDENTS']} start={HIT.line10} end={HIT.kul - 2} y={TOP.line} />
+    <HeroWord frame={frame} id="imli-kul" text="कुल" at={HIT.kul} out={HIT.ritual - 8} size={170} y={TOP.kulHero} />
+    <EnglishLine frame={frame} lines={['THE THREAD THAT MAKES YOU FAMILY']} start={HIT.line11} end={HIT.ritual - 2} y={TOP.kulLine} />
+  </g>
+);
+
 export const ImliFilm: React.FC = () => {
   useBrandFonts();
   const frame = useCurrentFrame();
@@ -141,20 +163,27 @@ export const ImliFilm: React.FC = () => {
       <Svg>
         <g transform={world}>
           <HookCandy frame={frame} />
+          <Lamps frame={frame} />
+          <LampSteam frame={frame} />
+          <RainSplash frame={frame} />
+          <Hand frame={frame} />
           <Leafy frame={frame} />
           <LeafCandy frame={frame} />
-          <KulWrist frame={frame} />
+          <KulWrists frame={frame} />
           <TieOff frame={frame} />
         </g>
       </Svg>
       <Svg>
         <g transform={screenTransform(shake)}>
+          <ThreadStory frame={frame} />
+          <ReturnCandy frame={frame} />
           {frame >= WORDMARK_AT ? (
             <g transform={LABEL_PLACE}>
               <Wordmark t={t} starts={starts} fps={IMF.fps} />
             </g>
           ) : null}
-          <LabelText x={540} y={1090} size={46} weight={900} tracking={0.22} anchor="middle" text="SWEET VOICE, TIED." shown={Math.max(0, seconds(frame - HIT.tagline) * 40)} />
+          <Meanings frame={frame} />
+          <LabelText x={540} y={1110} size={46} weight={900} tracking={0.22} anchor="middle" text="SWEET VOICE, TIED." shown={Math.max(0, seconds(frame - HIT.tagline) * 40)} />
         </g>
       </Svg>
       <Html5Audio src={staticFile('audio/imli-score.wav')} />

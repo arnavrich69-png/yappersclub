@@ -133,7 +133,7 @@ const TheKul: React.FC<{frame: number}> = ({frame}) => (
 // ---------------------------------------------------------------- PULP
 
 /** Tamarind brown with darker fibres under the grain: the inside of the imli. */
-const PulpArt: React.FC<{uid: string}> = ({uid}) => (
+export const PulpArt: React.FC<{uid: string}> = ({uid}) => (
   <g>
     <defs>
       <pattern id={`${uid}-fibre`} width={160} height={70} patternUnits="userSpaceOnUse" patternTransform="rotate(-14)">

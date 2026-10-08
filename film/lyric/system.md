@@ -16,7 +16,8 @@ system keeps the brand's world and drops the need to know where it comes from.
      in India already knows from temples and rakhi;
    - the label world's jokes (ingredients, best before, stamps) are packet jokes, universal.
 3. **The legend lives in one place.** The pinned reel इमली क्यों? (`film/out/imli-film.mp4`) tells it
-   once, in 21 seconds. Captions can point to it; films never have to.
+   once, in 40 seconds, with the thread's own story (the ganda bandhan). Captions can point to it;
+   films never have to.
 4. **Every film opens on its title, as a flavour.** The first 1.5 seconds: the wrapper untwists to the
    song's label: FLAVOUR No. XX, the Hindi flavour name, the three word English line, the song's name
    and the artist. A viewer learns what they are watching before any metaphor arrives.

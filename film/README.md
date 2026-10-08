@@ -10,8 +10,8 @@ from `../logo/dhwanikul-lockup-yellow.svg`, so the Devanagari is always shaped e
 Brief 02 is done. Brief 03 is built as the Night 01 open call: its frame, with no performer clip in it,
 and the 40 s open call film बस तू बाकी है, made only in code. Brief 04's machine has stages 1 and 2
 (word timing, the music as data, the sync test), measured on a test song and waiting for the first
-member's original. इमली क्यों? is the 21 s reel that tells the imli legend once, for the pinned row,
-so no other film has to.
+member's original. इमली क्यों? is the 40 s reel that tells the imli legend and the thread's story
+once, for the pinned row, so no other film has to.
 
 - `out/logo-film.mp4`: the logo film, 5.4 s, 1080 x 1920, 30 fps, with the FLAVOUR No. 01 seal
 - `out/logo-film-clean.mp4`: the same film with no seal (and no thud), to open any future reel
@@ -23,9 +23,10 @@ so no other film has to.
 - `out/open-call-film-frames/`: eight frames, one per beat of the story, and the grid cover (its last frame)
 - `out/open-call-hero.mp4` and `out/open-call-hero-frames/`: the film's approved hero proof
   (`open-call/`: creative direction, screenplay, score, implementation notes)
-- `out/imli-film.mp4`: इमली क्यों?, 21 s, 1080 x 1920, 30 fps, with its score: who Tansen was, his
-  tamarind tree, why our singers get an imli (`imli/creative-direction.md`)
-- `out/imli-film-frames/`: eight frames, one per bar, and the cover (its last frame)
+- `out/imli-film.mp4`: इमली क्यों?, 40 s, 1080 x 1920, 30 fps, with its score: who Tansen was, his
+  lamps and his rain, his tamarind tree, why our singers get an imli, why we tie the thread (the
+  ganda bandhan), the directions and what ध्वनि KUL means (`imli/creative-direction.md`)
+- `out/imli-film-frames/`: eleven frames, one per moment of the story, and the cover (its last frame)
 - `lyric/`: the lyric film machine (`lyric/README.md`) and the lyric system for viewers who have
   never heard the legend (`lyric/system.md`). Songs go in the pack's `songs/` folder.
 
@@ -40,7 +41,7 @@ npm run open-call       # renders the 10 s open call and its four frames
 npm run open-call-film  # renders the 40 s open call film, its eight frames and the grid cover
 npm run score           # writes the open call film's music from open-call/beat-map.json
 npm run hero            # renders the open call film's hero proof and its eight frames
-npm run imli            # renders इमली क्यों? (its score first), its eight frames and the cover
+npm run imli            # renders इमली क्यों? (its score first), its frames and the cover
 npm run proof           # re-renders the pluck proof
 ```
 
@@ -116,20 +117,27 @@ from edge to edge in every frame.
 
 ## इमली क्यों?, bar by bar (`src/imli/`)
 
-90 BPM, 20 frames a beat, 8 bars. One Hindi hero word and one short English line at a time; the
-thread at y = 672 is one line from edge to edge in every frame. Why it exists and how to post it:
-`imli/creative-direction.md`.
+90 BPM, 20 frames a beat, 15 bars. One Hindi hero word and one short English line at a time; the
+thread at y = 672 is one line from edge to edge in every frame. Why it exists, the sources and how to
+post it: `imli/creative-direction.md`.
 
 | Time | What happens |
 |------|--------------|
-| 0.0 to 2.7 | In the dark, one haldi light on the tied imli threaded on the string. इमली क्यों? pops in, WHY DO OUR SINGERS GET A CANDY? types, a rising question on the thread. The camera pans along the thread onto an imli wrapper. |
-| 2.7 to 5.3 | Tansen's tomb prints in through halftone dots. तानसेन, THE GREATEST SINGER OF AKBAR'S COURT. |
-| 5.3 to 8.0 | The thread is lifted into the tamarind tree beside the tomb, a stop a beat. HE RESTS IN GWALIOR, BESIDE AN IMLI TREE. |
-| 8.0 to 10.7 | One leaf lets go, rocks down and lands on the string. GWALIOR SAYS: CHEW ONE OF ITS LEAVES. |
-| 10.7 to 13.3 | मीठी आवाज़. The string plays a two bar tune with the leaf riding it. AND YOUR VOICE TURNS SWEET. |
-| 13.3 to 16.0 | The tree goes back into the line and the tomb prints out. A wrapper closes round the leaf, twists shut and is tied: इमली, SO EVERY DHWANIKUL SINGER GETS AN IMLI. |
-| 16.0 to 18.7 | The candy is flung to the top. A wrist rises to the thread and the kalava is tied on it: कुल, TIED WITH THE THREAD THAT MAKES YOU FAMILY. |
-| 18.7 to 21.3 | The wrapper folds into the ध्वनि KUL label on haldi, SWEET VOICE, TIED. types, the thread ties off. The last frame is the cover. |
+| 0.0 to 2.7 | In the dark, one haldi light on the tied imli threaded on the string. इमली क्यों? pops in, WHY DO OUR SINGERS GET A CANDY? types, a rising question on the thread. |
+| 2.7 to 5.3 | The thread flings the candy off and the light flickers out. Five unlit diyas hang on the thread. A packet hand comes down from above and plucks one Sa in the silence: तानसेन, THE GREATEST SINGER OF AKBAR'S COURT. |
+| 5.3 to 8.0 | दीपक. The hand runs along the thread, low Sa to high Sa, and each note lights a lamp, its pool of haldi dots spreading. THEY SAY HIS RAAG DEEPAK LIT LAMPS. |
+| 8.0 to 10.7 | मल्हार. Thunder, and rain through the dark; the drops ring the string and splash; one drop finds each flame and puts it out. AND HIS MALHAR BROUGHT THE RAIN. The camera pans along the thread onto an imli wrapper. |
+| 10.7 to 13.3 | Tansen's tomb prints in through halftone dots. ग्वालियर, HE RESTS IN OUR CITY, GWALIOR. |
+| 13.3 to 16.0 | The thread is lifted into the tamarind tree beside the tomb, a stop a beat. BESIDE HIM GROWS AN IMLI TREE. |
+| 16.0 to 18.7 | One leaf lets go, rocks down and lands on the string. GWALIOR SAYS: CHEW ONE OF ITS LEAVES. |
+| 18.7 to 21.3 | मीठी आवाज़. The string plays the two bar tune with the leaf riding it. AND YOUR VOICE TURNS SWEET. |
+| 21.3 to 24.0 | The tree goes back into the line and the tomb prints out. A wrapper closes round the leaf, twists shut and is tied: इमली, SO EVERY DHWANIKUL SINGER GETS AN IMLI. |
+| 24.0 to 26.7 | The thread flings the candy off and asks with bar 1's rising notes: और धागा?, AND WHY THE RED THREAD? (the words now above the thread). |
+| 26.7 to 29.3 | गंडा बंधन. A wrist rises to the thread, the kalava winds twice round it, the pitch rising, and is tied. GURUS TIE IT ON THEIR STUDENTS. |
+| 29.3 to 32.0 | कुल. PULP floods out from the knot and the camera pulls back along the thread, wrist after wrist, while the tune comes back: THE THREAD THAT MAKES YOU FAMILY. |
+| 32.0 to 35.3 | The tied imli drops back onto the top of the packet and the ground is the wrapper again. DIRECTIONS FOR USE unrolls from the thread, a row a beat: 1 EAT THE IMLI BEFORE YOU SING, 2 TIE THE THREAD ON AFTER, YOU'RE KUL NOW; मीठी डोर under it. |
+| 35.3 to 37.3 | The directions print off, the wrapper folds into the ध्वनि KUL label on haldi and the wordmark pops. A bracket under ध्वनि: SOUND. One under KUL: FAMILY. |
+| 37.3 to 40.0 | SWEET VOICE, TIED. types and the thread ties off on Sa. The last frame is the cover. |
 
 ## What is where
 
@@ -143,8 +151,8 @@ thread at y = 672 is one line from edge to edge in every frame. Why it exists an
 | `src/performer/` | Brief 03's frame parts: the wrapper doors (intro), the stage, the gift tag on its kalava loop, the PACKED AT card (outro), and the open call that puts them together. |
 | `src/openCall/` | The 40 s open call film: its clock and score, the one thread, the tag's pendulum, the camera, the scenes and their parts (tree, pod, wrists, ingredients panel, venue seal). `parts/treeLift.ts` lifts Tansen's tree out of the thread for any film. See `open-call/implementation-notes.md`. |
 | `open-call/` | The film's creative direction, screenplay, beat map (the score) and implementation notes. |
-| `src/imli/` | इमली क्यों?: its clock and score, the string, the camera, Tansen's tomb, the dark stage and the wrapper behind the thread, the leaf, the candy and the wrist in front of it, the words. |
-| `imli/` | The reel's creative direction (the legend, checked, with its sources) and its beat map. |
+| `src/imli/` | इमली क्यों?: its clock and score, the string, the camera, the parts (Tansen's tomb, the diya, the directions panel) and the scenes: the dark stage and the wrapper behind the thread, Tansen's hand, the lamps, the rain, the leaf, the candy, the wrists, the words and the meanings. |
+| `imli/` | The reel's creative direction (both stories, checked, with their sources) and its beat map. |
 | `src/lyric/` | Brief 04's engine. So far the sync test (stage 2). |
 | `lyric/` | Brief 04's machine: the Python tools for stage 1 (`tools/`), how they work and how accurate they are (`README.md`), and the lyric system (`system.md`). |
 | `src/audio/` | Sound timing and loudness (written by `scripts/prepare-audio.mjs`) and `Cue`, which lands a sound's attack on a frame. |
