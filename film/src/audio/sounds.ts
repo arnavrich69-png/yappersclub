@@ -4,12 +4,15 @@
 
 import crinkle from './crinkle.json';
 import pluck from './pluck.json';
+import pluckLow from './pluckLow.json';
+import pluckPa from './pluckPa.json';
 import thud from './thud.json';
 
-export type SoundName = 'pluck' | 'crinkle' | 'thud';
+/** pluckPa and pluckLow are the pluck played slower: the tanpura's Pa and low Sa strings. */
+export type SoundName = 'pluck' | 'pluckPa' | 'pluckLow' | 'crinkle' | 'thud';
 
 type SoundData = {source: string; file: string; onsetSec: number; envRate: number; env: number[]};
-const DATA: Record<SoundName, SoundData> = {pluck, crinkle, thud};
+const DATA: Record<SoundName, SoundData> = {pluck, pluckPa, pluckLow, crinkle, thud};
 
 export const sound = (name: SoundName) => ({
   file: DATA[name].file,

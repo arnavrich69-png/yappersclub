@@ -4,13 +4,17 @@
 import {useEffect, useState} from 'react';
 import {cancelRender, continueRender, delayRender} from 'remotion';
 import bigShoulders from '../../../fonts/BigShouldersDisplay-Variable.ttf';
+import khandBold from '../../../fonts/Khand-Bold.ttf';
+import khandSemiBold from '../../../fonts/Khand-SemiBold.ttf';
 import modak from '../../../fonts/Modak-Regular.ttf';
 
-export const FONT = {label: 'Big Shoulders Display', display: 'Modak'} as const;
+export const FONT = {label: 'Big Shoulders Display', display: 'Modak', hindi: 'Khand'} as const;
 
 const FACES = [
   {family: FONT.label, url: bigShoulders, weight: '100 900'},
   {family: FONT.display, url: modak, weight: '400'},
+  {family: FONT.hindi, url: khandSemiBold, weight: '600'},
+  {family: FONT.hindi, url: khandBold, weight: '700'},
 ];
 
 let ready: Promise<void> | null = null;

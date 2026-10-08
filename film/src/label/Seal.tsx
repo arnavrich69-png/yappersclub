@@ -15,6 +15,8 @@ export type SealSpec = {
   rim: string;
   /** Rest angle in degrees. */
   angle: number;
+  /** The night's Hindi flavour name, set small in Khand under the number (optional). */
+  hindi?: string;
 };
 
 export const SEAL_NIGHT_01: SealSpec = {
@@ -23,11 +25,21 @@ export const SEAL_NIGHT_01: SealSpec = {
   angle: -9,
 };
 
+/**
+ * Where the centre lines sit: FLAVOUR, No., the Modak number and, when the night has one, its Hindi
+ * flavour name, all inside the inner ring.
+ */
+const CENTRE = {
+  plain: {flavour: {y: -26, size: 24}, no: {x: -36, y: 36, size: 21}, number: {x: 16, y: 48, size: 70}, hindi: {y: 0, size: 0}},
+  hindi: {flavour: {y: -33, size: 20}, no: {x: -31, y: 13, size: 19}, number: {x: 15, y: 24, size: 54}, hindi: {y: 55, size: 24}},
+};
+
 /** The seal artwork, centred on 0,0. */
 const SealArt: React.FC<{uid: string; spec: SealSpec}> = ({uid, spec}) => {
   const rimR = SEAL_R - 22;
   const ring = `M${-rimR},0 a${rimR},${rimR} 0 1,1 ${2 * rimR},0 a${rimR},${rimR} 0 1,1 ${-2 * rimR},0`;
-  const modakSize = 70;
+  const at = spec.hindi ? CENTRE.hindi : CENTRE.plain;
+  const n = at.number.size;
   return (
     <g>
       <defs>
@@ -40,21 +52,26 @@ const SealArt: React.FC<{uid: string; spec: SealSpec}> = ({uid, spec}) => {
           {spec.rim}
         </textPath>
       </text>
-      <text y={-26} textAnchor="middle" fontFamily={FONT.label} fontWeight={900} fontSize={24} letterSpacing={24 * 0.22} fill={C.ink}>
+      <text y={at.flavour.y} textAnchor="middle" fontFamily={FONT.label} fontWeight={900} fontSize={at.flavour.size} letterSpacing={at.flavour.size * 0.22} fill={C.ink}>
         FLAVOUR
       </text>
-      <text x={-36} y={36} textAnchor="middle" fontFamily={FONT.label} fontWeight={900} fontSize={21} letterSpacing={1} fill={C.ink}>
+      <text x={at.no.x} y={at.no.y} textAnchor="middle" fontFamily={FONT.label} fontWeight={900} fontSize={at.no.size} letterSpacing={1} fill={C.ink}>
         No.
       </text>
       {/* Modak number: cream fill, ink outline at 4.5% and tamarind shadow at 5% of the size. */}
-      <g fontFamily={FONT.display} fontSize={modakSize} textAnchor="middle">
-        <text x={16 + modakSize * 0.05} y={48 + modakSize * 0.05} fill={C.tamarind} stroke={C.tamarind} strokeWidth={modakSize * 0.09} strokeLinejoin="round">
+      <g fontFamily={FONT.display} fontSize={n} textAnchor="middle">
+        <text x={at.number.x + n * 0.05} y={at.number.y + n * 0.05} fill={C.tamarind} stroke={C.tamarind} strokeWidth={n * 0.09} strokeLinejoin="round">
           {spec.number}
         </text>
-        <text x={16} y={48} fill={C.cream} stroke={C.ink} strokeWidth={modakSize * 0.09} strokeLinejoin="round" paintOrder="stroke">
+        <text x={at.number.x} y={at.number.y} fill={C.cream} stroke={C.ink} strokeWidth={n * 0.09} strokeLinejoin="round" paintOrder="stroke">
           {spec.number}
         </text>
       </g>
+      {spec.hindi ? (
+        <text y={at.hindi.y} textAnchor="middle" fontFamily={FONT.hindi} fontWeight={700} fontSize={at.hindi.size} fill={C.ink}>
+          {spec.hindi}
+        </text>
+      ) : null}
     </g>
   );
 };

@@ -5,6 +5,8 @@
 // sits exactly 0.1 s into the file, trims the tail, levels it, and writes:
 //   public/audio/<name>.wav   the sound the films play
 //   src/audio/<name>.json     attack time and loudness envelope
+// The pluck is also played slower to give the tanpura's lower strings (Pa and the low Sa) for the
+// drone in the open call reel, so a recorded pluck rebuilds the drone too.
 //
 // Usage: node scripts/prepare-audio.mjs
 
@@ -125,6 +127,12 @@ const prepare = (name, maxAfter) => {
   const g = Math.pow(10, -3 / 20) / p;
   for (let i = 0; i < y.length; i++) y[i] *= g;
 
+  publish(name, y, source, file, `attack found at ${onsetIn.toFixed(3)} s in ${path.basename(file)}, moved to ${ONSET} s`);
+  return {y, source, file};
+};
+
+/** Writes a prepared sound and its loudness envelope. */
+const publish = (name, y, source, file, note) => {
   writeWav16(path.join(film, 'public', 'audio', `${name}.wav`), y, SR);
 
   // Loudness envelope (normalised to the loudest moment).
@@ -153,11 +161,29 @@ const prepare = (name, maxAfter) => {
     env: envNorm,
   };
   fs.writeFileSync(path.join(film, 'src', 'audio', `${name}.json`), JSON.stringify(info));
-  console.log(
-    `${name} ready (${source}): attack found at ${onsetIn.toFixed(3)} s in ${path.basename(file)}, moved to ${ONSET} s; ` +
-      `-20 dB by ${info.minus20dBSec ?? '?'} s`,
-  );
+  console.log(`${name} ready (${source}): ${note}; -20 dB by ${info.minus20dBSec ?? '?'} s`);
+};
+
+/** A lower string from the same pluck: read it slower so its pitch drops by `ratio`, attack kept at ONSET. */
+const derive = (name, from, ratio) => {
+  const n = Math.floor(from.y.length / ratio);
+  const y = new Float32Array(n);
+  for (let i = 0; i < n; i++) {
+    const s = i * ratio;
+    const j = Math.floor(s);
+    const f = s - j;
+    y[i] = (from.y[j] ?? 0) * (1 - f) + (from.y[j + 1] ?? 0) * f;
+  }
+  const z = y.slice(Math.round((ONSET / ratio - ONSET) * SR));
+  let p = 0;
+  for (const v of z) p = Math.max(p, Math.abs(v));
+  const g = Math.pow(10, -3 / 20) / p;
+  for (let i = 0; i < z.length; i++) z[i] *= g;
+  publish(name, z, from.source, from.file, `the pluck at ${ratio} of its pitch`);
 };
 
 fs.mkdirSync(path.join(film, 'public', 'audio'), {recursive: true});
-for (const [name, maxAfter] of Object.entries(SOUNDS)) prepare(name, maxAfter);
+const prepared = Object.fromEntries(Object.entries(SOUNDS).map(([name, maxAfter]) => [name, prepare(name, maxAfter)]));
+// Tanpura strings for the drone: Pa below Sa (a fourth down) and Sa an octave down.
+derive('pluckPa', prepared.pluck, 0.75);
+derive('pluckLow', prepared.pluck, 0.5);

@@ -9,7 +9,8 @@
     "audio": "node scripts/prepare-audio.mjs",
     "proof": "node scripts/render-proof.mjs",
     "typecheck": "tsc --noEmit",
-    "film": "node scripts/render-film.mjs"
+    "film": "node scripts/render-film.mjs",
+    "open-call": "node scripts/render-open-call.mjs"
   },
   "dependencies": {
     "@remotion/cli": "4.0.527",
