@@ -98,7 +98,17 @@ lines up to the sample, the silence is truly silent).
 
 ## Performance
 
-About 1.5 s a frame at full size on this machine (the paper grain and the tree's print are the
-costly filters): the picture takes about 30 minutes, the sound a minute, the nine stills two more.
-The tag's pendulum integrates at 12 steps a frame from its arrival, which costs nothing next to the
-SVG filters.
+`npm run open-call-film` takes about 16 minutes on this machine: the picture about 14 (0.7 s a
+frame; the paper grain and the tree's print are the costly filters), the sound a minute, the nine
+stills one more. The tag's pendulum integrates at 12 steps a frame from its arrival, which costs
+nothing next to the SVG filters.
+
+## Checked on the final render
+
+- The hero's eight frames are pixel for pixel the approved proof's.
+- A frame rendered twice is byte for byte the same.
+- The soundtrack is the score with no offset: Remotion's mix matches it to -98 dB, the mp4's AAC
+  track lines up to the sample (only AAC's own noise, -55 dB, remains), and the silence in bar 8
+  is digital silence in the mix (-99 dB in the AAC).
+- The thread is one line from edge to edge in all 1200 frames, and every settled word sits between
+  y 220 and y 1620 and left of x 940.
