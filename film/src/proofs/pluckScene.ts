@@ -15,7 +15,7 @@
 //   0.53 to 1.00  the end snaps back past rest and rings: a decaying swing, plus a twang that
 //                 flips side on every frame and dies away with the sound; the candy recoils
 
-import {pluckEnvelope} from '../audio/pluck';
+import {envelope} from '../audio/sounds';
 import type {FingerPose} from '../components/Finger';
 import {inCubic, inOutCubic, inOutSine, inQuad, outCubic, releaseResponse, span} from '../utils/easing';
 import {add, angleOf, applyPose, clamp, deg, fromAngle, lerp, lerpV, mul, rotate, smoothstep, sub, type Pose, type V} from '../utils/math';
@@ -88,7 +88,8 @@ export const candyPose = (t: number): Pose => {
 /** Knot offset in mark space. */
 export const knotShift = (t: number): V => mul(fromAngle(PULL_DIR), KNOT_GIVE * knotGive(t));
 
-const knotWorld = (t: number) => world(add(K0, knotShift(t)), candyPose(t));
+/** Where the right knot's ends hang from, in the frame. */
+export const knotWorld = (t: number) => world(add(K0, knotShift(t)), candyPose(t));
 
 // ---------------------------------------------------------------- finger
 
@@ -190,7 +191,7 @@ export const endB = (t: number): EndState => {
   const tau = t - T.release;
   const lean = candyPose(t).rad;
   const start = AT_RELEASE.heading;
-  const loud = Math.pow(clamp(pluckEnvelope(tau) / 0.92, 0, 1.2), 0.6);
+  const loud = Math.pow(clamp(envelope('pluck', tau) / 0.92, 0, 1.2), 0.6);
   const ring = ringingEnd(knotWorld(t), {
     length: PAID_OUT_LENGTH,
     tau,

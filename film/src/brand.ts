@@ -26,6 +26,5 @@ export const THREAD = {
 } as const;
 
 export const HALFTONE = tokens.label.halftone;
-export const SAFE_9X16 = tokens.safeZones9x16;
 
 export const FRAME = {width: 1080, height: 1920, fps: 30} as const;

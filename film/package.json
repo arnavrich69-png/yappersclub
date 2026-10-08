@@ -8,7 +8,8 @@
     "studio": "remotion studio",
     "audio": "node scripts/prepare-audio.mjs",
     "proof": "node scripts/render-proof.mjs",
-    "typecheck": "tsc --noEmit"
+    "typecheck": "tsc --noEmit",
+    "film": "node scripts/render-film.mjs"
   },
   "dependencies": {
     "@remotion/cli": "4.0.527",

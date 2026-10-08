@@ -2,8 +2,8 @@
 // knot and the thread rings in time with the pluck sound.
 
 import React from 'react';
-import {Html5Audio, Sequence, staticFile, useCurrentFrame} from 'remotion';
-import {PLUCK} from '../audio/pluck';
+import {useCurrentFrame} from 'remotion';
+import {Cue} from '../audio/Cue';
 import {Finger} from '../components/Finger';
 import {Ground, Layer} from '../components/Print';
 import {poseToSvg} from '../utils/math';
@@ -15,7 +15,6 @@ const candyTransform = (t: number) => `${poseToSvg(candyPose(t))} translate(${MA
 export const ProofPluck: React.FC = () => {
   const frame = useCurrentFrame();
   const t = frame / FPS;
-  const onsetFrames = Math.round(PLUCK.onsetSec * FPS);
   const a = endA(t);
   const b = endB(t);
 
@@ -49,9 +48,7 @@ export const ProofPluck: React.FC = () => {
         <Finger uid="finger" pose={fingerPose(t)} />
       </Layer>
 
-      <Sequence from={SNAP_FRAME - onsetFrames}>
-        <Html5Audio src={staticFile(PLUCK.file)} />
-      </Sequence>
+      <Cue name="pluck" attackFrame={SNAP_FRAME} />
     </>
   );
 };
