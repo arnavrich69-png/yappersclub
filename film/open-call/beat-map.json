@@ -15,51 +15,592 @@
   },
   "raga": {
     "name": "Bhupali",
-    "semitonesFromSa": {"S,": -12, "P,": -5, "D,": -3, "S": 0, "R": 2, "G": 4, "P": 7, "D": 9, "S'": 12}
+    "semitonesFromSa": {
+      "S,": -12,
+      "P,": -5,
+      "D,": -3,
+      "S": 0,
+      "R": 2,
+      "G": 4,
+      "P": 7,
+      "D": 9,
+      "S'": 12
+    }
   },
   "tune": {
     "name": "the two bar tune",
-    "barA": [["S", 1], ["R", 1.5], ["G", 2], ["P", 3], ["G", 4]],
-    "barB": [["R", 1], ["S", 1.5], ["D,", 2], ["S", 3]],
+    "barA": [
+      [
+        "S",
+        1
+      ],
+      [
+        "R",
+        1.5
+      ],
+      [
+        "G",
+        2
+      ],
+      [
+        "P",
+        3
+      ],
+      [
+        "G",
+        4
+      ]
+    ],
+    "barB": [
+      [
+        "R",
+        1
+      ],
+      [
+        "S",
+        1.5
+      ],
+      [
+        "D,",
+        2
+      ],
+      [
+        "S",
+        3
+      ]
+    ],
     "note": "[note, beat]. Asked in bar 1 (rising, unresolved on Pa), answered in full in bars 9 to 10, resolved to Sa on the final knot."
   },
   "grooves": {
-    "keherwa": [["thud", 1, 1.0], ["thud", 1.5, 0.45], ["crinkle", 2, 0.7], ["crinkle", 2.5, 0.35], ["crinkle", 3, 0.7], ["pluckMuted", 3.5, 0.5], ["thud", 4, 0.55], ["crinkle", 4.5, 0.4]],
-    "light": [["thud", 1, 0.9], ["crinkle", 2, 0.6], ["thud", 3, 0.6], ["crinkle", 4, 0.6]],
-    "half": [["thud", 1, 0.9], ["thud", 3, 0.7]]
+    "keherwa": [
+      [
+        "thud",
+        1,
+        1.0
+      ],
+      [
+        "thud",
+        1.5,
+        0.45
+      ],
+      [
+        "crinkle",
+        2,
+        0.7
+      ],
+      [
+        "crinkle",
+        2.5,
+        0.35
+      ],
+      [
+        "crinkle",
+        3,
+        0.7
+      ],
+      [
+        "pluckMuted",
+        3.5,
+        0.5
+      ],
+      [
+        "thud",
+        4,
+        0.55
+      ],
+      [
+        "crinkle",
+        4.5,
+        0.4
+      ]
+    ],
+    "light": [
+      [
+        "thud",
+        1,
+        0.9
+      ],
+      [
+        "crinkle",
+        2,
+        0.6
+      ],
+      [
+        "thud",
+        3,
+        0.6
+      ],
+      [
+        "crinkle",
+        4,
+        0.6
+      ]
+    ],
+    "half": [
+      [
+        "thud",
+        1,
+        0.9
+      ],
+      [
+        "thud",
+        3,
+        0.7
+      ]
+    ]
   },
   "barByBar": [
-    {"bar": 1, "scene": 1, "drone": "fade in", "groove": null, "events": [["pluck", "S", 1, "the hand plucks: पहला सुर"], ["pluck", "R", 3, ""], ["pluck", "G", 3.5, ""], ["pluck", "P", 4, "किसका? lands, left hanging"]]},
-    {"bar": 2, "scene": 2, "drone": "on", "groove": null, "events": [["pluck", "G", 1, "branch"], ["pluck", "R", 3, "branch"]]},
-    {"bar": 3, "scene": 2, "drone": "on", "groove": null, "events": [["pluck", "S", 1, "branch"], ["pluck", "D,", 3, "branch"], ["crinkle", null, 3.5, "leaves fall, soft"]]},
-    {"bar": 4, "scene": 3, "drone": "on", "groove": null, "events": [["pluck", "P", 1, "the pod falls"], ["pluck", "G", 1.5, ""], ["pluck", "R", 2, ""], ["pluck", "S", 2.5, ""], ["crinkle", null, 3, "wrapper twists shut"], ["thud", null, 4, "knot, soft"], ["pluck", "S", 4, "knot"]]},
-    {"bar": 5, "scene": 4, "drone": "on", "groove": "light", "events": [["pluck", "S'", 1, "line 1"], ["pluck", "P", 3, "line 2"]]},
-    {"bar": 6, "scene": 4, "drone": "on", "groove": "keherwa", "events": [["pluck", "S", 1, "1 SONG"], ["pluck", "R", 1.5, ""], ["pluck", "G", 2, ""], ["pluck", "P", 2.5, ""], ["rest", null, 3, "AUTOTUNE 0%: one beat with no melody"], ["pluck", "S", 4, "1 VOICE"]]},
-    {"bar": 7, "scene": 4, "drone": "on", "groove": "keherwa", "events": [["thud", null, 1, "बस तू बाकी है lands"], ["pluck", "S'", 1, ""], ["crinkle", "roll", 4, "fill into the stop"]]},
-    {"bar": 8, "scene": "5 to 6", "drone": "cut on beat 1, back on beat 3", "groove": null, "silence": [1, 3], "events": [["pluck", "S", 3, "the yank, loud"], ["crinkle", "swish", 3, "the label leaves"], ["thud", null, 4, "the light comes on"]]},
-    {"bar": 9, "scene": 6, "drone": "on", "groove": "keherwa", "events": [["tune", "barA", 1, "तेरी बारी pops on beat 1"]]},
-    {"bar": 10, "scene": 7, "drone": "on", "groove": "keherwa", "events": [["tune", "barB", 1, ""], ["crinkle", "untwist", 1, "the wrapper opens"], ["crinkle", "crunch", 3, "the bite"]]},
-    {"bar": 11, "scene": 7, "drone": "on", "groove": "keherwa", "events": [["glide", "S to P", 1, "the thread tightens round the wrist, pitch rising"], ["thud", null, 3, "the rakhi knot, soft"], ["pluck", "S", 3, "the knot"]]},
-    {"bar": 12, "scene": 7, "drone": "loud", "groove": "half", "events": [["pluck", "S,", 1, "YOU'RE KUL NOW, PULP"], ["pluck", "P,", 3, "ध्वनि KUL pops"]]},
-    {"bar": 13, "scene": 8, "drone": "on", "groove": "keherwa", "events": [["thud", "stamp", 1, "the seal: the biggest thud"]]},
-    {"bar": 14, "scene": 8, "drone": "on", "groove": "keherwa", "events": [["tune", "barA", 1, "the tune returns, short"]]},
-    {"bar": 15, "scene": 9, "drone": "on", "groove": null, "events": [["thud", null, 2, "DM TO PERFORM band lands"], ["pluck", "S", 3, "the knot ties off, rings to the end"]]}
+    {
+      "bar": 1,
+      "scene": 1,
+      "drone": "fade in",
+      "groove": null,
+      "events": [
+        [
+          "pluck",
+          "S",
+          1,
+          "the hand plucks: पहला सुर",
+          0.85
+        ],
+        [
+          "pluck",
+          "R",
+          3,
+          ""
+        ],
+        [
+          "pluck",
+          "G",
+          3.5,
+          ""
+        ],
+        [
+          "pluck",
+          "P",
+          4,
+          "किसका? lands, left hanging"
+        ]
+      ]
+    },
+    {
+      "bar": 2,
+      "scene": 2,
+      "drone": "on",
+      "groove": null,
+      "events": [
+        [
+          "pluck",
+          "G",
+          1,
+          "branch"
+        ],
+        [
+          "pluck",
+          "R",
+          3,
+          "branch"
+        ]
+      ]
+    },
+    {
+      "bar": 3,
+      "scene": 2,
+      "drone": "on",
+      "groove": null,
+      "events": [
+        [
+          "pluck",
+          "S",
+          1,
+          "branch"
+        ],
+        [
+          "pluck",
+          "D,",
+          3,
+          "branch"
+        ],
+        [
+          "crinkle",
+          null,
+          3.5,
+          "leaves fall, soft"
+        ]
+      ]
+    },
+    {
+      "bar": 4,
+      "scene": 3,
+      "drone": "on",
+      "groove": null,
+      "events": [
+        [
+          "pluck",
+          "P",
+          1,
+          "the pod falls"
+        ],
+        [
+          "pluck",
+          "G",
+          1.5,
+          ""
+        ],
+        [
+          "pluck",
+          "R",
+          2,
+          ""
+        ],
+        [
+          "pluck",
+          "S",
+          2.5,
+          ""
+        ],
+        [
+          "crinkle",
+          null,
+          3,
+          "wrapper twists shut"
+        ],
+        [
+          "thud",
+          null,
+          4,
+          "knot, soft",
+          0.5
+        ],
+        [
+          "pluck",
+          "S",
+          4,
+          "knot"
+        ]
+      ]
+    },
+    {
+      "bar": 5,
+      "scene": 4,
+      "drone": "on",
+      "groove": "light",
+      "events": [
+        [
+          "pluck",
+          "S'",
+          1,
+          "line 1"
+        ],
+        [
+          "pluck",
+          "P",
+          3,
+          "line 2"
+        ]
+      ]
+    },
+    {
+      "bar": 6,
+      "scene": 4,
+      "drone": "on",
+      "groove": "keherwa",
+      "events": [
+        [
+          "pluck",
+          "S",
+          1,
+          "1 SONG"
+        ],
+        [
+          "pluck",
+          "R",
+          1.5,
+          ""
+        ],
+        [
+          "pluck",
+          "G",
+          2,
+          ""
+        ],
+        [
+          "pluck",
+          "P",
+          2.5,
+          ""
+        ],
+        [
+          "rest",
+          null,
+          3,
+          "AUTOTUNE 0%: one beat with no melody"
+        ],
+        [
+          "pluck",
+          "S",
+          4,
+          "1 VOICE"
+        ]
+      ]
+    },
+    {
+      "bar": 7,
+      "scene": 4,
+      "drone": "on",
+      "groove": "keherwa",
+      "events": [
+        [
+          "thud",
+          null,
+          1,
+          "बस तू बाकी है lands",
+          0.9
+        ],
+        [
+          "pluck",
+          "S'",
+          1,
+          ""
+        ],
+        [
+          "crinkle",
+          "roll",
+          4,
+          "fill into the stop"
+        ]
+      ]
+    },
+    {
+      "bar": 8,
+      "scene": "5 to 6",
+      "drone": "cut on beat 1, back on beat 3",
+      "groove": null,
+      "silence": [
+        1,
+        3
+      ],
+      "events": [
+        [
+          "pluck",
+          "S",
+          3,
+          "the yank, loud",
+          1.0
+        ],
+        [
+          "crinkle",
+          "swish",
+          3,
+          "the label leaves"
+        ],
+        [
+          "thud",
+          null,
+          4,
+          "the light comes on",
+          0.9
+        ]
+      ]
+    },
+    {
+      "bar": 9,
+      "scene": 6,
+      "drone": "on",
+      "groove": "keherwa",
+      "events": [
+        [
+          "tune",
+          "barA",
+          1,
+          "तेरी बारी pops on beat 1"
+        ]
+      ]
+    },
+    {
+      "bar": 10,
+      "scene": 7,
+      "drone": "on",
+      "groove": "keherwa",
+      "events": [
+        [
+          "tune",
+          "barB",
+          1,
+          ""
+        ],
+        [
+          "crinkle",
+          "untwist",
+          1,
+          "the wrapper opens"
+        ],
+        [
+          "crinkle",
+          "crunch",
+          3,
+          "the bite"
+        ]
+      ]
+    },
+    {
+      "bar": 11,
+      "scene": 7,
+      "drone": "on",
+      "groove": "keherwa",
+      "events": [
+        [
+          "glide",
+          "S to P",
+          1,
+          "the thread tightens round the wrist, pitch rising"
+        ],
+        [
+          "thud",
+          null,
+          3,
+          "the rakhi knot, soft",
+          0.5
+        ],
+        [
+          "pluck",
+          "S",
+          3,
+          "the knot"
+        ]
+      ]
+    },
+    {
+      "bar": 12,
+      "scene": 7,
+      "drone": "loud",
+      "groove": "half",
+      "events": [
+        [
+          "pluck",
+          "S,",
+          1,
+          "YOU'RE KUL NOW, PULP"
+        ],
+        [
+          "pluck",
+          "P,",
+          3,
+          "ध्वनि KUL pops"
+        ]
+      ]
+    },
+    {
+      "bar": 13,
+      "scene": 8,
+      "drone": "on",
+      "groove": "keherwa",
+      "events": [
+        [
+          "thud",
+          "stamp",
+          1,
+          "the seal: the biggest thud"
+        ]
+      ]
+    },
+    {
+      "bar": 14,
+      "scene": 8,
+      "drone": "on",
+      "groove": "keherwa",
+      "events": [
+        [
+          "tune",
+          "barA",
+          1,
+          "the tune returns, short"
+        ]
+      ]
+    },
+    {
+      "bar": 15,
+      "scene": 9,
+      "drone": "on",
+      "groove": null,
+      "events": [
+        [
+          "thud",
+          null,
+          2,
+          "DM TO PERFORM band lands",
+          0.8
+        ],
+        [
+          "pluck",
+          "S",
+          3,
+          "the knot ties off, rings to the end",
+          0.85
+        ]
+      ]
+    }
   ],
   "visualHits": [
-    {"frame": 0, "what": "the hand plucks (bar 1 beat 1)"},
-    {"frame": 60, "what": "किसका? (bar 1 beat 4)"},
-    {"frame": 240, "what": "the pod lets go (bar 4 beat 1)"},
-    {"frame": 300, "what": "the knot ties: the tied imli (bar 4 beat 4)"},
-    {"frame": 480, "what": "बस तू बाकी है lands (bar 7 beat 1)"},
-    {"frame": 560, "what": "silence (bar 8 beat 1)"},
-    {"frame": 600, "what": "the yank (bar 8 beat 3)"},
-    {"frame": 620, "what": "the light (bar 8 beat 4)"},
-    {"frame": 640, "what": "तेरी बारी (bar 9 beat 1)"},
-    {"frame": 760, "what": "the bite (bar 10 beat 3)"},
-    {"frame": 840, "what": "the rakhi knot on the wrist (bar 11 beat 3)"},
-    {"frame": 880, "what": "YOU'RE KUL NOW, PULP (bar 12 beat 1)"},
-    {"frame": 960, "what": "the seal stamps (bar 13 beat 1)"},
-    {"frame": 1140, "what": "DM TO PERFORM band (bar 15 beat 2)"},
-    {"frame": 1160, "what": "the thread ties off (bar 15 beat 3)"}
+    {
+      "frame": 0,
+      "what": "the hand plucks (bar 1 beat 1)"
+    },
+    {
+      "frame": 60,
+      "what": "किसका? (bar 1 beat 4)"
+    },
+    {
+      "frame": 240,
+      "what": "the pod lets go (bar 4 beat 1)"
+    },
+    {
+      "frame": 300,
+      "what": "the knot ties: the tied imli (bar 4 beat 4)"
+    },
+    {
+      "frame": 480,
+      "what": "बस तू बाकी है lands (bar 7 beat 1)"
+    },
+    {
+      "frame": 560,
+      "what": "silence (bar 8 beat 1)"
+    },
+    {
+      "frame": 600,
+      "what": "the yank (bar 8 beat 3)"
+    },
+    {
+      "frame": 620,
+      "what": "the light (bar 8 beat 4)"
+    },
+    {
+      "frame": 640,
+      "what": "तेरी बारी (bar 9 beat 1)"
+    },
+    {
+      "frame": 760,
+      "what": "the bite (bar 10 beat 3)"
+    },
+    {
+      "frame": 840,
+      "what": "the rakhi knot on the wrist (bar 11 beat 3)"
+    },
+    {
+      "frame": 880,
+      "what": "YOU'RE KUL NOW, PULP (bar 12 beat 1)"
+    },
+    {
+      "frame": 960,
+      "what": "the seal stamps (bar 13 beat 1)"
+    },
+    {
+      "frame": 1140,
+      "what": "DM TO PERFORM band (bar 15 beat 2)"
+    },
+    {
+      "frame": 1160,
+      "what": "the thread ties off (bar 15 beat 3)"
+    }
   ]
 }

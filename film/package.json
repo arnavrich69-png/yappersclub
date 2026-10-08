@@ -10,7 +10,9 @@
     "proof": "node scripts/render-proof.mjs",
     "typecheck": "tsc --noEmit",
     "film": "node scripts/render-film.mjs",
-    "open-call": "node scripts/render-open-call.mjs"
+    "open-call": "node scripts/render-open-call.mjs",
+    "score": "node scripts/make-score.mjs",
+    "hero": "node scripts/render-open-call-hero.mjs"
   },
   "dependencies": {
     "@remotion/cli": "4.0.527",

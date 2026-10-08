@@ -27,7 +27,18 @@ const tagOutline = (inset: number) => {
   return `M${x0},${top + c} L${-w / 2 + chamfer},${top} L${w / 2 - chamfer},${top} L${x1},${top + c} L${x1},${bottom} L${x0},${bottom} Z`;
 };
 
-const TagArt: React.FC<{uid: string; text: TagText}> = ({uid, text}) => (
+/** A tag with no name yet: fill-in lines for the name and handle, and a caret waiting on the first. */
+const BlankLines: React.FC<{caret: boolean}> = ({caret}) => (
+  <g>
+    <line x1={-82} y1={130} x2={82} y2={130} stroke={C.ink} strokeWidth={3} strokeLinecap="round" />
+    <line x1={-82} y1={192} x2={82} y2={192} stroke={C.ink} strokeWidth={3} strokeLinecap="round" />
+    {caret ? <rect x={-80} y={84} width={5} height={40} fill={C.ink} /> : null}
+    <LabelText x={-80} y={246} size={30} weight={800} tracking={0.06} text="@" />
+    <line x1={-52} y1={244} x2={82} y2={244} stroke={C.ink} strokeWidth={3} strokeLinecap="round" />
+  </g>
+);
+
+const TagArt: React.FC<{uid: string; text: TagText; caret: boolean}> = ({uid, text, caret}) => (
   <g>
     <defs>
       <HalftonePattern id={`${uid}-ht`} grid={7} r={1.6} opacity={0.1} rotate={18} />
@@ -38,10 +49,16 @@ const TagArt: React.FC<{uid: string; text: TagText}> = ({uid, text}) => (
     <circle r={17} fill={C.cream} stroke={C.ink} strokeWidth={3.5} />
     <circle r={8.5} fill={C.ink} />
     <LabelText x={0} y={56} size={20} weight={800} tracking={0.26} anchor="middle" text={text.label} />
-    {text.name.map((word, i) => (
-      <ModakText key={word + i} x={0} y={128 + i * 64} size={60} text={word} />
-    ))}
-    <LabelText x={0} y={242} size={30} weight={800} tracking={0.06} anchor="middle" text={text.handle} />
+    {text.name.length === 0 ? (
+      <BlankLines caret={caret} />
+    ) : (
+      <>
+        {text.name.map((word, i) => (
+          <ModakText key={word + i} x={0} y={128 + i * 64} size={60} text={word} />
+        ))}
+        <LabelText x={0} y={242} size={30} weight={800} tracking={0.06} anchor="middle" text={text.handle} />
+      </>
+    )}
   </g>
 );
 
@@ -59,7 +76,14 @@ export const tagSwing = (t: number, release: number, kicks: number[]) => {
   return a;
 };
 
-export const TagOnThread: React.FC<{uid: string; pivot: V; angle: number; text: TagText; scale?: number}> = ({uid, pivot, angle, text, scale = 1}) => {
+export const TagOnThread: React.FC<{uid: string; pivot: V; angle: number; text: TagText; scale?: number; caret?: boolean}> = ({
+  uid,
+  pivot,
+  angle,
+  text,
+  scale = 1,
+  caret = false,
+}) => {
   const rad = (angle * Math.PI) / 180;
   const down: V = rotate([0, 1], rad);
   const hole = add(pivot, fromAngle(Math.atan2(down[1], down[0]), LOOP));
@@ -74,7 +98,7 @@ export const TagOnThread: React.FC<{uid: string; pivot: V; angle: number; text: 
         <path d={tagOutline(0)} fill={C.tamarind} />
       </g>
       <g transform={place}>
-        <TagArt uid={uid} text={text} />
+        <TagArt uid={uid} text={text} caret={caret} />
       </g>
       <ThreadPiece uid={`${uid}-front`} points={strand(-1)} width={9} roundBasis={14} />
       <KnotBody uid={`${uid}-knot`} center={pivot} size={22} />

@@ -15,6 +15,8 @@ Brief 02 is done. Brief 03 is built as the Night 01 open call: its frame, with n
 - `out/proof-pluck.mp4` and `out/proof-pluck-frames/`: the approved one second pluck proof
 - `out/open-call.mp4`: the Night 01 open call, 10 s, 1080 x 1920, 30 fps
 - `out/open-call-frames/`: four frames: the wrapper opening, the seal landing, the lit stage, the PACKED AT card
+- `out/open-call-hero.mp4` and `out/open-call-hero-frames/`: the hero proof of the 40 s open call film
+  (`open-call/`: creative direction, screenplay, score, implementation notes). The rest of the film is stage 5
 
 ## Use it
 
@@ -23,7 +25,9 @@ cd film
 npm install
 npm run studio     # Remotion Studio: scrub LogoFilm, LogoFilmClean, OpenCall, ProofPluck, Checks/ThreadLab
 npm run film       # renders both logo films and the eight frames
-npm run open-call  # renders the open call and its four frames
+npm run open-call  # renders the 10 s open call and its four frames
+npm run score      # writes the 40 s open call film's music from open-call/beat-map.json
+npm run hero       # renders the open call film's hero proof and its eight frames
 npm run proof      # re-renders the pluck proof
 ```
 
