@@ -4,6 +4,7 @@ import {FRAME} from './brand';
 import {LookCheck} from './lab/LookCheck';
 import {MarkCheck} from './lab/MarkCheck';
 import {THREAD_LAB_FRAMES, ThreadLab} from './lab/ThreadLab';
+import {TYPE_CHECK_HEIGHT, TypeCheck} from './lab/TypeCheck';
 import {ProofPluck} from './proofs/ProofPluck';
 import {LogoFilm} from './film/LogoFilm';
 import {OpenCallReel} from './performer/OpenCallReel';
@@ -21,6 +22,7 @@ export const RemotionRoot: React.FC = () => (
       <Composition id="LookCheck" component={LookCheck} durationInFrames={1} fps={30} width={1080} height={400} />
       <Composition id="MarkCheck" component={MarkCheck} durationInFrames={1} fps={30} width={1080} height={1080} />
       <Composition id="ThreadLab" component={ThreadLab} durationInFrames={THREAD_LAB_FRAMES} fps={30} width={1080} height={1920} />
+      <Composition id="TypeCheck" component={TypeCheck} durationInFrames={1} fps={30} width={1080} height={TYPE_CHECK_HEIGHT} />
     </Folder>
   </>
 );
