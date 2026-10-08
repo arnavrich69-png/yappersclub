@@ -1,3 +1,7 @@
 node_modules/
 out/tmp/
 .remotion/
+lyric/tools/.venv
+lyric/tools/.models
+lyric/tools/__pycache__/
+lyric/tools/test/__pycache__/

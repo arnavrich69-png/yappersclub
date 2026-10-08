@@ -13,7 +13,11 @@
     "open-call": "node scripts/render-open-call.mjs",
     "score": "node scripts/make-score.mjs",
     "hero": "node scripts/render-open-call-hero.mjs",
-    "open-call-film": "node scripts/render-open-call-film.mjs"
+    "open-call-film": "node scripts/render-open-call-film.mjs",
+    "lyric:setup": "bash lyric/tools/setup.sh",
+    "lyric:timing": "bash lyric/tools/run.sh timing.py",
+    "lyric:analyse": "bash lyric/tools/run.sh analyse.py",
+    "lyric:sync": "node scripts/lyric-sync-test.mjs"
   },
   "dependencies": {
     "@remotion/cli": "4.0.527",

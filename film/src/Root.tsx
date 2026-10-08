@@ -13,6 +13,7 @@ import {OpenCallReel} from './performer/OpenCallReel';
 import {OC_FRAMES} from './performer/openCall';
 import {FILM_FRAMES} from './film/timeline';
 import {DURATION_FRAMES} from './proofs/pluckScene';
+import {LyricSyncTest, type SyncTestProps} from './lyric/SyncTest';
 
 export const RemotionRoot: React.FC = () => (
   <>
@@ -22,6 +23,16 @@ export const RemotionRoot: React.FC = () => (
     <Composition id="OpenCallFilm" component={OpenCallFilm} durationInFrames={OCF.frames} fps={FRAME.fps} width={FRAME.width} height={FRAME.height} />
     <Composition id="OpenCallHero" component={OpenCallHero} durationInFrames={HERO_FRAMES} fps={FRAME.fps} width={FRAME.width} height={FRAME.height} />
     <Composition id="ProofPluck" component={ProofPluck} durationInFrames={DURATION_FRAMES} fps={FRAME.fps} width={FRAME.width} height={FRAME.height} />
+    <Composition
+      id="LyricSyncTest"
+      component={LyricSyncTest}
+      defaultProps={{song: 'no song yet', duration: 2, phrases: []} satisfies SyncTestProps}
+      calculateMetadata={({props}) => ({durationInFrames: Math.max(1, Math.ceil(props.duration * FRAME.fps))})}
+      durationInFrames={60}
+      fps={FRAME.fps}
+      width={FRAME.width}
+      height={FRAME.height}
+    />
     <Folder name="Checks">
       <Composition id="LookCheck" component={LookCheck} durationInFrames={1} fps={30} width={1080} height={400} />
       <Composition id="MarkCheck" component={MarkCheck} durationInFrames={1} fps={30} width={1080} height={1080} />
