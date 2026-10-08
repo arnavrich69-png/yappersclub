@@ -1,0 +1,23 @@
+{
+  "name": "dhwanikul-film",
+  "private": true,
+  "version": "0.1.0",
+  "description": "Dhwanikul logo film and motion pieces, built with Remotion",
+  "type": "module",
+  "scripts": {
+    "studio": "remotion studio",
+    "audio": "node scripts/prepare-audio.mjs",
+    "proof": "node scripts/render-proof.mjs",
+    "typecheck": "tsc --noEmit"
+  },
+  "dependencies": {
+    "@remotion/cli": "4.0.527",
+    "react": "19.1.1",
+    "react-dom": "19.1.1",
+    "remotion": "4.0.527"
+  },
+  "devDependencies": {
+    "@types/react": "19.1.12",
+    "typescript": "5.9.2"
+  }
+}
