@@ -32,7 +32,7 @@ Everything Claude Code needs to build Dhwanikul's posts and films in the locked 
 | `fonts/` | Modak, Big Shoulders Display, Khand (all free, SIL Open Font License) |
 | `briefs/` | The prompts to paste into Claude Code |
 | `reference/` | Logo film storyboard, Instagram grid test, the PYAAR? process guide, early roughs |
-| `film/` | Remotion project: the logo film (`film/out/logo-film.mp4`, clean opener, 8 frames), the Night 01 open call (`film/out/open-call.mp4`, 4 frames), the thread, the tied imli (see `film/README.md`) |
+| `film/` | Remotion project: the logo film (`film/out/logo-film.mp4`, clean opener, 8 frames), the Night 01 open call (`film/out/open-call.mp4`, 4 frames), the 40 s open call film बस तू बाकी है (`film/out/open-call-film.mp4`, 8 frames and the grid cover), the thread, the tied imli (see `film/README.md`) |
 
 ## Golden rules (short version)
 

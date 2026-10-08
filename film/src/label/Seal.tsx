@@ -107,13 +107,15 @@ const InkSpread: React.FC<{k: number; seed: string}> = ({k, seed}) => {
  * Seal stamping down so it hits at `impact` (seconds). Before that it falls from above the paper
  * (bigger, shadow further away, still turning); then squash, rebound and settle.
  */
-export const StampedSeal: React.FC<{uid: string; t: number; impact: number; at: [number, number]; spec: SealSpec}> = ({
-  uid,
-  t,
-  impact,
-  at,
-  spec,
-}) => {
+export const StampedSeal: React.FC<{
+  uid: string;
+  t: number;
+  impact: number;
+  at: [number, number];
+  spec: SealSpec;
+  /** Artwork to stamp instead of the FLAVOUR seal (same radius), such as a PACKED AT venue seal. */
+  art?: React.ReactNode;
+}> = ({uid, t, impact, at, spec, art}) => {
   const fall = 0.1;
   if (t < impact - fall) return null;
   const k = t - impact;
@@ -137,7 +139,7 @@ export const StampedSeal: React.FC<{uid: string; t: number; impact: number; at: 
         </g>
       ) : null}
       <g transform={`rotate(${angle}) scale(${sx} ${sy})`}>
-        <SealArt uid={uid} spec={spec} />
+        {art ?? <SealArt uid={uid} spec={spec} />}
       </g>
     </g>
   );

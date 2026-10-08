@@ -1,19 +1,19 @@
 // The one thread of the open call film. It lives on the grid line (y 672) in screen space, so every
-// frame lines up with the profile grid; a weight on it (the tag) makes it sag into a V, and every
-// string the score plays makes it ring: a crisp flip from side to side each frame (15 Hz at 30 fps),
-// never blurred, dying away. Notes ring from the point they are played: higher notes further right,
-// as if a finger were stopping the string.
+// frame lines up with the profile grid. Anything that weighs on it or pulls it (a finger, a caught
+// pod, a tag) bends it between two anchors off the frame; every string the score plays makes it
+// ring: a crisp flip from side to side each frame (15 Hz at 30 fps), never blurred, dying away.
+// Notes ring from the point they are played: higher notes further right, as if stopping a string.
 
 import {THREAD} from '../brand';
 import type {V} from '../utils/math';
 import {HITS, SILENCES, type Hit} from './score';
-import {HIT, seconds} from './timing';
+import {HIT, STILL, seconds} from './timing';
 
 export const THREAD_Y = THREAD.gridY9x16;
 export const THREAD_WIDTH = THREAD.thickness.story9x16;
-const LEFT = -20;
-const RIGHT = 1100;
-/** Off-frame anchors the thread hangs between when something weighs on it. */
+export const LEFT = -20;
+export const RIGHT = 1100;
+/** Off-frame anchors the thread hangs between when something bends it. */
 const ANCHOR_L = -420;
 const ANCHOR_R = 1500;
 const N = 140;
@@ -28,8 +28,12 @@ const RING: Partial<Record<Hit['kind'], {amp: number; decay: number}>> = {
   muted: {amp: 2, decay: 0.06},
 };
 
-/** The yank: the slack thread snapped taut rings hard across its whole length. */
-const YANK = {amp: 30, decay: 0.18};
+/** Moments that shake the whole thread: the yank, the fling of the imli, the stamp. */
+const TWANGS: {frame: number; amp: number; decay: number}[] = [
+  {frame: HIT.fling, amp: 22, decay: 0.22},
+  {frame: HIT.yank, amp: 30, decay: 0.18},
+  {frame: HIT.stamp, amp: 20, decay: 0.2},
+];
 
 const silencedBefore = (frame: number) => {
   let cut = -Infinity;
@@ -37,11 +41,13 @@ const silencedBefore = (frame: number) => {
   return cut;
 };
 
+const flip = (age: number) => (age % 2 === 0 ? 1 : -1);
+
 /** Ringing displacement at x on `frame` (pixels, down positive). */
 export const ringAt = (frame: number, x: number) => {
+  if (STILL.some(([a, b]) => frame >= a && frame < b)) return 0;
   const u = (x - LEFT) / (RIGHT - LEFT);
   const cut = silencedBefore(frame);
-  const flip = (age: number) => (age % 2 === 0 ? 1 : -1);
   let y = 0;
   for (const h of HITS) {
     if (h.frame > frame) break;
@@ -58,29 +64,43 @@ export const ringAt = (frame: number, x: number) => {
     }
     y += spec.amp * (h.vel ?? 0.7) * shape * flip(age) * Math.exp(-tau / spec.decay);
   }
-  const yankAge = frame - HIT.yank;
-  if (yankAge >= 0) y += YANK.amp * Math.sin(Math.PI * u) * flip(yankAge) * Math.exp(-seconds(yankAge) / YANK.decay);
+  for (const tw of TWANGS) {
+    const age = frame - tw.frame;
+    if (age >= 0) y += tw.amp * Math.sin(Math.PI * u) * flip(age) * Math.exp(-seconds(age) / tw.decay);
+  }
   return y;
 };
 
-/** A weight hanging on the thread at x, pulling it down into a V of the given depth. */
-export type Weight = {x: number; depth: number};
+/** Points the thread is pulled to: x and how far below the grid line, joined by straight runs. */
+export type Bend = [number, number][];
 
-const sagAt = (x: number, w: Weight | null) => {
-  if (!w || w.depth === 0) return 0;
-  return x < w.x ? (w.depth * (x - ANCHOR_L)) / (w.x - ANCHOR_L) : (w.depth * (ANCHOR_R - x)) / (ANCHOR_R - w.x);
+/** A single weight hanging on the thread (a tag's loop). */
+export type Weight = {x: number; depth: number};
+export const bendOf = (w: Weight | null): Bend => (w && w.depth !== 0 ? [[w.x, w.depth]] : []);
+
+const sagAt = (x: number, bend: Bend) => {
+  if (bend.length === 0) return 0;
+  const pts: Bend = [[ANCHOR_L, 0], ...[...bend].sort((a, b) => a[0] - b[0]), [ANCHOR_R, 0]];
+  for (let i = 0; i < pts.length - 1; i++) {
+    const [x0, d0] = pts[i];
+    const [x1, d1] = pts[i + 1];
+    if (x >= x0 && x <= x1) return x1 === x0 ? d1 : d0 + ((d1 - d0) * (x - x0)) / (x1 - x0);
+  }
+  return 0;
 };
 
-/** Height of the thread at x, without ringing (what the tag's loop feels). */
-export const restYAt = (x: number, w: Weight | null) => THREAD_Y + sagAt(x, w);
+/** Height of the thread at x, without ringing (what a loop hanging on it feels). */
+export const restYAt = (x: number, bend: Bend) => THREAD_Y + sagAt(x, bend);
 
-/** The thread's points on `frame`: across the frame at the grid line, sagging and ringing. */
-export const threadPoints = (frame: number, w: Weight | null): V[] => {
+/** The thread across the frame on `frame`: on the grid line, bent and ringing. */
+export const threadPoints = (frame: number, bend: Bend, from = LEFT, to = RIGHT): V[] => {
   const xs: number[] = [];
-  for (let i = 0; i <= N; i++) xs.push(LEFT + ((RIGHT - LEFT) * i) / N);
-  if (w && w.depth !== 0 && w.x > LEFT && w.x < RIGHT) {
-    xs.push(w.x);
-    xs.sort((a, b) => a - b);
+  for (let i = 0; i <= N; i++) {
+    const x = LEFT + ((RIGHT - LEFT) * i) / N;
+    if (x > from && x < to) xs.push(x);
   }
-  return xs.map((x) => [x, restYAt(x, w) + ringAt(frame, x)]);
+  xs.push(from, to);
+  for (const [x] of bend) if (x > from && x < to) xs.push(x);
+  xs.sort((a, b) => a - b);
+  return xs.map((x) => [x, restYAt(x, bend) + ringAt(frame, x)]);
 };

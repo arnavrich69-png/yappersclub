@@ -20,21 +20,34 @@ export const YourTurnStage: React.FC<{frame: number}> = ({frame}) => (
   <StageArt uid="lantern" lit={lightOn(frame)} spot={LIGHT} clear={NO_CLEAR} />
 );
 
+/** When the ritual begins the words drop out of the light, the first a frame ahead of the second. */
+const dropOut = (frame: number, delay: number, spin: number) => {
+  const t = seconds(frame - HIT.ritual - delay);
+  if (t <= 0) return '';
+  const y = 0.5 * 5200 * t * t;
+  return `translate(0 ${y.toFixed(1)}) rotate(${(spin * t * 40).toFixed(2)} 540 ${HEADLINE_Y})`;
+};
+
 export const YourTurnWords: React.FC<{frame: number}> = ({frame}) => {
+  if (frame >= HIT.ritual + 24) return null;
   const words: [string, number, number, number, 'end' | 'start'][] = [
     ['तेरी', HIT.teri, 522, 380, 'end'],
     ['बारी', HIT.bari, 558, 700, 'start'],
   ];
   return (
     <g>
-      {words.map(([word, start, x, pivot, anchor]) =>
+      {words.map(([word, start, x, pivot, anchor], i) =>
         frame < start ? null : (
-          <g key={word} transform={popTransform(seconds(frame - start), pivot, HEADLINE_Y)}>
-            <ModakText x={x} y={HEADLINE_Y} size={170} anchor={anchor} text={word} dressed={frame >= start + 1} />
+          <g key={word} transform={dropOut(frame, i, i === 0 ? -1 : 1) || undefined}>
+            <g transform={popTransform(seconds(frame - start), pivot, HEADLINE_Y)}>
+              <ModakText x={x} y={HEADLINE_Y} size={170} anchor={anchor} text={word} dressed={frame >= start + 1} />
+            </g>
           </g>
         ),
       )}
-      <LabelText x={540} y={HEADLINE_Y + 88} size={36} weight={900} tracking={0.12} anchor="middle" text="BRING ONE SONG · WE BRING THE IMLI" shown={typed(frame, HIT.bring)} />
+      <g transform={dropOut(frame, 2, 0.4) || undefined}>
+        <LabelText x={540} y={HEADLINE_Y + 88} size={36} weight={900} tracking={0.12} anchor="middle" text="BRING ONE SONG · WE BRING THE IMLI" shown={typed(frame, HIT.bring)} />
+      </g>
     </g>
   );
 };

@@ -7,7 +7,8 @@ from `../logo/dhwanikul-lockup-yellow.svg`, so the Devanagari is always shaped e
 
 ## Status
 
-Brief 02 is done. Brief 03 is built as the Night 01 open call: its frame, with no performer clip in it.
+Brief 02 is done. Brief 03 is built as the Night 01 open call: its frame, with no performer clip in it,
+and the 40 s open call film बस तू बाकी है, made only in code.
 
 - `out/logo-film.mp4`: the logo film, 5.4 s, 1080 x 1920, 30 fps, with the FLAVOUR No. 01 seal
 - `out/logo-film-clean.mp4`: the same film with no seal (and no thud), to open any future reel
@@ -15,20 +16,23 @@ Brief 02 is done. Brief 03 is built as the Night 01 open call: its frame, with n
 - `out/proof-pluck.mp4` and `out/proof-pluck-frames/`: the approved one second pluck proof
 - `out/open-call.mp4`: the Night 01 open call, 10 s, 1080 x 1920, 30 fps
 - `out/open-call-frames/`: four frames: the wrapper opening, the seal landing, the lit stage, the PACKED AT card
-- `out/open-call-hero.mp4` and `out/open-call-hero-frames/`: the hero proof of the 40 s open call film
-  (`open-call/`: creative direction, screenplay, score, implementation notes). The rest of the film is stage 5
+- `out/open-call-film.mp4`: the 40 s open call film, बस तू बाकी है, 1080 x 1920, 30 fps, with its score
+- `out/open-call-film-frames/`: eight frames, one per beat of the story, and the grid cover (its last frame)
+- `out/open-call-hero.mp4` and `out/open-call-hero-frames/`: the film's approved hero proof
+  (`open-call/`: creative direction, screenplay, score, implementation notes)
 
 ## Use it
 
 ```
 cd film
 npm install
-npm run studio     # Remotion Studio: scrub LogoFilm, LogoFilmClean, OpenCall, ProofPluck, Checks/ThreadLab
-npm run film       # renders both logo films and the eight frames
-npm run open-call  # renders the 10 s open call and its four frames
-npm run score      # writes the 40 s open call film's music from open-call/beat-map.json
-npm run hero       # renders the open call film's hero proof and its eight frames
-npm run proof      # re-renders the pluck proof
+npm run studio          # Remotion Studio: scrub LogoFilm, LogoFilmClean, OpenCall, OpenCallFilm, ProofPluck, Checks
+npm run film            # renders both logo films and the eight frames
+npm run open-call       # renders the 10 s open call and its four frames
+npm run open-call-film  # renders the 40 s open call film, its eight frames and the grid cover
+npm run score           # writes the open call film's music from open-call/beat-map.json
+npm run hero            # renders the open call film's hero proof and its eight frames
+npm run proof           # re-renders the pluck proof
 ```
 
 ## Your sounds
@@ -44,7 +48,8 @@ Until a recording exists its synthetic stand-in in `public/audio/*-placeholder.w
 
 The open call uses the same three sounds. Its tanpura drone is the pluck retuned down to Pa and to
 low Sa (`pluckPa`, `pluckLow`, made from the pluck by `prepare-audio.mjs`), so your pluck recording
-carries over to it. Run `npm run open-call` after adding the recordings.
+carries over to it. Run `npm run open-call` after adding the recordings. The 40 s film's whole score
+(tune, drone and groove) is played on the same three sounds: run `npm run open-call-film`.
 
 ## The film, beat by beat (`src/film/timeline.ts`)
 
@@ -71,6 +76,26 @@ carries over to it. Run `npm run open-call` after adding the recordings.
 | 7.3 to 9.1 | PACKED AT · PADHARO SA · GWALIOR types in, NIGHT 01 pops, the DM TO PERFORM band drops with a thud, the fine print types. |
 | 9.1 to 10.0 | Hold. |
 
+## The open call film, beat by beat (`src/openCall/`)
+
+90 BPM, 20 frames a beat. Every move lands on a beat of the score; the thread at y = 672 is one line
+from edge to edge in every frame.
+
+| Time | What happens |
+|------|--------------|
+| 0.0 to 2.0 | In the dark a packet hand plucks the thread: Sa, and पहला सुर rings with it. Re, Ga, Pa rising: किसका? lands on Pa and is left hanging. NIGHT 01 NEEDS ITS FIRST VOICES types in. The blank SUNG BY tag hangs on the thread. |
+| 2.0 to 2.8 | The camera pans along the thread off the dark stage onto an imli wrapper. |
+| 2.7 to 7.0 | The thread is lifted into Tansen's tamarind tree from both trunk bases, a stop per note (Ga, Re, Sa, low Dha), the printed crown rising inside it. तानसेन की इमली prints in through halftone dots, GWALIOR SAYS IT SWEETENED HIS VOICE types, pods appear, leaves are shaken off the crown. |
+| 8.0 to 10.5 | A pod falls; the tree goes back down into the line, which catches the pod. A wrapper pops round it and twists shut, the thread ties both ends and flings the tied imli up to the top of the packet. |
+| 10.1 to 16.0 | The border draws in, the FLAVOUR No. 01 · खट्टा मीठा band drops, the ingredients panel unrolls and is written a row a beat, the camera in close: IMLI 1, KALAVA 1, SONG 1, AUTOTUNE 0% (the thread lies dead still), VOICE with nothing after it. |
+| 16.0 to 18.7 | बस तू बाकी है lands with a thud. ONE INGREDIENT MISSING: YOU, and the fine print. |
+| 18.7 to 20.0 | Silence. The blank tag slides in on the slack thread; its caret blinks. |
+| 20.0 to 24.0 | The thread snaps taut and yanks the label away. The stage underneath; the light flickers on. तेरी बारी pops in with the tune played on the thread. BRING ONE SONG · WE BRING THE IMLI. |
+| 24.0 to 29.3 | मीठी डोर. The tied imli drops into the light, untwists, the pod is bitten: 1 EAT THE IMLI BEFORE YOU SING. A wrist rises to the thread, the kalava winds twice round it and ties: 2 TIE THE THREAD ON AFTER. |
+| 29.3 to 32.0 | PULP floods out of the light. The camera pulls back along the thread, wrist after wrist: YOU'RE KUL NOW, ध्वनि KUL. |
+| 32.0 to 37.3 | The PACKED AT · PADHARO SA seal stamps down and the ground is the label again. तेरी बारी threads onto the line; then a piece a beat: the tied imli, the flavour band, 17 SAT OCTOBER, PADHARO SA · FREE ENTRY, UNPLUGGED COVERS · COME SING OR COME LISTEN. |
+| 37.3 to 40.0 | The blank tag swings back in, DM TO PERFORM drops, the thread ties off with the rakhi knot on the final Sa. The last frame is the grid cover. |
+
 ## What is where
 
 | Folder | What |
@@ -81,6 +106,8 @@ carries over to it. Run `npm run open-call` after adding the recordings.
 | `src/film/` | The logo film: timeline, the threads pulled off (`unravel.ts`), the returning thread (`heroThread.ts`), and the composition. |
 | `src/proofs/` | The approved pluck proof. The film reuses it as its second beat. |
 | `src/performer/` | Brief 03's frame parts: the wrapper doors (intro), the stage, the gift tag on its kalava loop, the PACKED AT card (outro), and the open call that puts them together. |
+| `src/openCall/` | The 40 s open call film: its clock and score, the one thread, the tag's pendulum, the camera, the scenes and their parts (tree, pod, wrists, ingredients panel, venue seal). See `open-call/implementation-notes.md`. |
+| `open-call/` | The film's creative direction, screenplay, beat map (the score) and implementation notes. |
 | `src/audio/` | Sound timing and loudness (written by `scripts/prepare-audio.mjs`) and `Cue`, which lands a sound's attack on a frame. |
 | `src/components/` | Print world (haldi ground, halftone, paper grain), the finger, font loading, brand type as live text (`Type.tsx`) and the candy pop (`pop.ts`). |
 | `src/lab/` | Checks: the thread against `svg-parts`, the imli against the logo, a test bench of every thread ability. |
